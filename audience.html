@@ -2,309 +2,481 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>CrowdCode Audience</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --gold: #f7b718;
-      --pink: #ff66c4;
-      --ink: #101010;
-      --text: #f8f9ff;
-      --muted: rgba(255,255,255,.75);
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.16);
+    :root{
+      --nku-gold:#f7b718;
+      --nku-black:#111111;
+      --pink:#ff66c4;
+      --violet:#7765ff;
+      --cyan:#54d3ff;
+      --green:#37d67a;
+      --danger:#ff6b6b;
+
+      --text:#ffffff;
+      --muted:rgba(255,255,255,.76);
+      --glass:rgba(255,255,255,.1);
+      --border:rgba(255,255,255,.16);
+
+      --theme-primary:var(--nku-gold);
+      --theme-secondary:var(--pink);
+      --theme-accent:var(--cyan);
+      --theme-bg1:#090b16;
+      --theme-bg2:#13182c;
+      --theme-bg3:#1c2140;
+      --theme-glow:rgba(247,183,24,.28);
+      --theme-hero-a:rgba(247,183,24,.16);
+      --theme-hero-b:rgba(84,211,255,.12);
+      --theme-hero-c:rgba(255,102,196,.14);
     }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { margin: 0; padding: 0; height: 100%; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text);
+    body.theme-nku{
+      --theme-primary:#f7b718;
+      --theme-secondary:#111111;
+      --theme-accent:#54d3ff;
+      --theme-bg1:#0a0b12;
+      --theme-bg2:#1a1d2d;
+      --theme-bg3:#101522;
+      --theme-glow:rgba(247,183,24,.30);
+      --theme-hero-a:rgba(247,183,24,.18);
+      --theme-hero-b:rgba(84,211,255,.12);
+      --theme-hero-c:rgba(255,255,255,.08);
+    }
+
+    body.theme-recruiting{
+      --theme-primary:#54d3ff;
+      --theme-secondary:#7765ff;
+      --theme-accent:#ff66c4;
+      --theme-bg1:#08111b;
+      --theme-bg2:#12182f;
+      --theme-bg3:#25163a;
+      --theme-glow:rgba(84,211,255,.26);
+      --theme-hero-a:rgba(84,211,255,.18);
+      --theme-hero-b:rgba(119,101,255,.16);
+      --theme-hero-c:rgba(255,102,196,.14);
+    }
+
+    body.theme-donor{
+      --theme-primary:#f7b718;
+      --theme-secondary:#ff66c4;
+      --theme-accent:#ffffff;
+      --theme-bg1:#120d08;
+      --theme-bg2:#241722;
+      --theme-bg3:#3a2030;
+      --theme-glow:rgba(247,183,24,.24);
+      --theme-hero-a:rgba(247,183,24,.15);
+      --theme-hero-b:rgba(255,102,196,.12);
+      --theme-hero-c:rgba(255,255,255,.10);
+    }
+
+    body.theme-classroom{
+      --theme-primary:#37d67a;
+      --theme-secondary:#54d3ff;
+      --theme-accent:#f7b718;
+      --theme-bg1:#07140d;
+      --theme-bg2:#0d2330;
+      --theme-bg3:#21311a;
+      --theme-glow:rgba(55,214,122,.24);
+      --theme-hero-a:rgba(55,214,122,.16);
+      --theme-hero-b:rgba(84,211,255,.12);
+      --theme-hero-c:rgba(247,183,24,.12);
+    }
+
+    *{ box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html,body{ margin:0; padding:0; width:100%; height:100%; }
+
+    body{
+      font-family:'Inter', system-ui, sans-serif;
+      color:var(--text);
+      overflow:hidden;
       background:
-        radial-gradient(circle at top left, rgba(247,183,24,.20), transparent 22%),
-        radial-gradient(circle at bottom right, rgba(255,102,196,.16), transparent 24%),
-        linear-gradient(180deg, #111327, #1a1f48 58%, #111327);
-      overflow: hidden;
+        radial-gradient(circle at 15% 15%, var(--theme-hero-a), transparent 24%),
+        radial-gradient(circle at 80% 20%, var(--theme-hero-b), transparent 22%),
+        radial-gradient(circle at 80% 80%, var(--theme-hero-c), transparent 20%),
+        linear-gradient(160deg, var(--theme-bg1), var(--theme-bg2), var(--theme-bg3));
+      position:relative;
     }
 
-    .screen {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: max(18px, env(safe-area-inset-top)) 18px max(22px, env(safe-area-inset-bottom));
-      position: relative;
+    body::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:24px 24px;
+      opacity:.35;
+      mask-image: radial-gradient(circle at center, rgba(0,0,0,1), rgba(0,0,0,.2));
     }
 
-    .glass {
-      width: min(92vw, 520px);
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.14);
-      border-radius: 28px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.28);
-      backdrop-filter: blur(18px);
-      padding: 22px 18px;
+    .app{
+      position:relative;
+      z-index:2;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      padding:clamp(14px, 3vw, 20px);
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.12);
-      font-weight: 700;
-      font-size: .88rem;
-      margin-bottom: 14px;
-    }
-    .dot {
-      width: 10px; height: 10px; border-radius: 50%; background: #39d98a;
-      box-shadow: 0 0 0 5px rgba(57,217,138,.16);
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
     }
 
-    h1, h2, p { margin: 0; }
-    .title { font-size: clamp(1.5rem, 6vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; }
-    .subtext { color: var(--muted); margin-top: 10px; line-height: 1.45; }
-
-    .nickname-wrap { margin-top: 18px; }
-    input {
-      width: 100%;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 16px;
-      background: rgba(255,255,255,.08);
-      color: white;
-      padding: 14px 15px;
-      font-size: 1rem;
-      outline: none;
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.02em;
     }
 
-    .actions {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 14px;
-    }
-    button, a.cta {
-      width: 100%;
-      border: 0;
-      border-radius: 18px;
-      padding: 15px 18px;
-      font-weight: 800;
-      font-size: 1rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform .18s ease, filter .18s ease;
-    }
-    button:hover, a.cta:hover { transform: translateY(-1px); filter: brightness(1.04); }
-    .primary { background: linear-gradient(135deg, var(--gold), #ffd86e); color: var(--ink); }
-    .secondary { background: rgba(255,255,255,.10); color: white; border: 1px solid rgba(255,255,255,.12); }
-
-    .tile-screen {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 22px;
-      text-align: center;
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:var(--danger);
+      box-shadow:0 0 0 6px rgba(255,107,107,.12);
     }
 
-    .ambient {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      opacity: .85;
-    }
-    .ambient::before,
-    .ambient::after {
-      content: '';
-      position: absolute;
-      width: 55vw;
-      height: 55vw;
-      max-width: 340px;
-      max-height: 340px;
-      border-radius: 50%;
-      filter: blur(30px);
-      opacity: .32;
-      animation: floaty 8s ease-in-out infinite alternate;
-    }
-    .ambient::before { background: var(--gold); top: -7%; left: -14%; }
-    .ambient::after { background: var(--pink); bottom: -10%; right: -14%; animation-duration: 9.5s; }
-
-    .tile-index {
-      font-size: .9rem;
-      font-weight: 800;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.75);
-      margin-bottom: 12px;
-    }
-    .tile-main {
-      font-size: clamp(2.5rem, 18vw, 6rem);
-      line-height: .9;
-      font-weight: 900;
-      letter-spacing: -.05em;
-      text-shadow: 0 12px 28px rgba(0,0,0,.24);
-      max-width: 95vw;
-      word-break: break-word;
-    }
-    .tile-caption {
-      margin-top: 12px;
-      color: rgba(255,255,255,.82);
-      font-size: 1rem;
-      line-height: 1.4;
-      max-width: 34ch;
+    .dot.live{
+      background:var(--green);
+      box-shadow:0 0 0 6px rgba(55,214,122,.12);
+      animation:pulse 1.6s infinite;
     }
 
-    .countdown {
-      font-size: clamp(4rem, 28vw, 8rem);
-      line-height: .85;
-      font-weight: 900;
-      letter-spacing: -.06em;
-      text-shadow: 0 14px 30px rgba(0,0,0,.26);
-      animation: pulse 1s ease-in-out infinite;
+    @keyframes pulse{
+      0%{ transform:scale(1); }
+      50%{ transform:scale(1.08); }
+      100%{ transform:scale(1); }
     }
 
-    .reveal-card {
-      width: min(92vw, 560px);
-      padding: 24px 20px;
-      border-radius: 28px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 18px 50px rgba(0,0,0,.32);
-    }
-    .reveal-headline {
-      font-size: clamp(2rem, 11vw, 4rem);
-      line-height: .93;
-      font-weight: 900;
-      letter-spacing: -.05em;
-      text-shadow: 0 14px 30px rgba(0,0,0,.26);
-    }
-    .reveal-subhead {
-      font-size: clamp(1rem, 4.8vw, 1.25rem);
-      color: rgba(255,255,255,.88);
-      line-height: 1.4;
-      margin-top: 12px;
+    .center{
+      flex:1;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
     }
 
-    .selfie-wrap video, .selfie-wrap canvas {
-      width: min(88vw, 360px);
-      aspect-ratio: 9/16;
-      object-fit: cover;
-      border-radius: 28px;
-      background: rgba(0,0,0,.25);
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: 0 18px 50px rgba(0,0,0,.34);
-    }
-    .selfie-actions {
-      width: min(88vw, 360px);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 14px;
+    .content{
+      width:100%;
+      max-width:900px;
+      margin:0 auto;
+      position:relative;
     }
 
-    .tiny {
-      margin-top: 14px;
-      color: rgba(255,255,255,.68);
-      font-size: .84rem;
-      line-height: 1.45;
+    .headline{
+      font-size:clamp(2.8rem, 16vw, 8rem);
+      font-weight:900;
+      letter-spacing:-.06em;
+      line-height:.9;
+      margin:0;
+      text-shadow:0 10px 30px rgba(0,0,0,.32);
+      transform:translateY(0);
+      transition:transform .35s ease, opacity .35s ease, filter .35s ease;
+      word-break:break-word;
     }
 
-    .hidden { display: none !important; }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
+    .subhead{
+      margin:14px auto 0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:clamp(.95rem, 3vw, 1.25rem);
+      line-height:1.45;
+      transition:opacity .35s ease;
     }
-    @keyframes floaty {
-      from { transform: translateY(-8px) translateX(-8px); }
-      to { transform: translateY(12px) translateX(10px); }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:16px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      font-size:.74rem;
+      text-transform:uppercase;
+      letter-spacing:.1em;
+      font-weight:900;
+      backdrop-filter: blur(12px);
+    }
+
+    .footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:10px;
+      margin-top:10px;
+      font-size:.78rem;
+      color:rgba(255,255,255,.72);
+    }
+
+    .small{
+      opacity:.9;
+      line-height:1.4;
+    }
+
+    .nickname-wrap{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:20px;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,.08), transparent 60%),
+        linear-gradient(160deg, var(--theme-bg1), var(--theme-bg2), var(--theme-bg3));
+      z-index:9;
+      transition:opacity .35s ease, visibility .35s ease;
+    }
+
+    .nickname-card{
+      width:min(92vw, 460px);
+      border-radius:28px;
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
+      backdrop-filter: blur(20px);
+      padding:24px;
+      text-align:center;
+    }
+
+    .nickname-card h1{
+      margin:0 0 10px;
+      font-size:1.65rem;
+      letter-spacing:-.04em;
+    }
+
+    .nickname-card p{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:.96rem;
+    }
+
+    .nickname-input{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      padding:14px 16px;
+      font:inherit;
+      outline:none;
+      text-align:center;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .nickname-btn{
+      width:100%;
+      border:0;
+      border-radius:16px;
+      padding:14px 16px;
+      background:linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+      color:#111;
+      font-weight:900;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .nickname-secondary{
+      margin-top:10px;
+      width:100%;
+      border-radius:16px;
+      padding:12px 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      font-weight:800;
+      cursor:pointer;
+      font:inherit;
+    }
+
+    .phase-lobby .headline{
+      font-size:clamp(2.2rem, 11vw, 5.5rem);
+    }
+
+    .phase-lobby .subhead{
+      max-width:560px;
+    }
+
+    .phase-countdown .headline{
+      font-size:clamp(5rem, 32vw, 14rem);
+      text-shadow:
+        0 0 30px var(--theme-glow),
+        0 10px 32px rgba(0,0,0,.36);
+      animation:countdownPulse .85s ease infinite alternate;
+    }
+
+    @keyframes countdownPulse{
+      from{ transform:scale(1); filter:brightness(1); }
+      to{ transform:scale(1.05); filter:brightness(1.08); }
+    }
+
+    .phase-reveal .headline{
+      font-size:clamp(3rem, 14vw, 7rem);
+      animation:revealRise .9s ease both;
+    }
+
+    .phase-selfie .headline{
+      font-size:clamp(4rem, 20vw, 9rem);
+      animation:selfieBounce 1.2s ease-in-out infinite;
+    }
+
+    @keyframes revealRise{
+      0%{ opacity:0; transform:translateY(28px) scale(.96); filter:blur(8px); }
+      100%{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+    }
+
+    @keyframes selfieBounce{
+      0%,100%{ transform:translateY(0) scale(1); }
+      50%{ transform:translateY(-10px) scale(1.04); }
+    }
+
+    .glow-orb{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(14px);
+      opacity:.7;
+      pointer-events:none;
+      animation:floaty 8s ease-in-out infinite;
+    }
+
+    .orb-a{
+      width:180px; height:180px;
+      background:radial-gradient(circle, var(--theme-primary), transparent 68%);
+      top:10%;
+      left:8%;
+    }
+
+    .orb-b{
+      width:220px; height:220px;
+      background:radial-gradient(circle, var(--theme-secondary), transparent 68%);
+      bottom:12%;
+      right:6%;
+      animation-delay:1.5s;
+    }
+
+    .orb-c{
+      width:140px; height:140px;
+      background:radial-gradient(circle, var(--theme-accent), transparent 68%);
+      top:18%;
+      right:14%;
+      animation-delay:3s;
+    }
+
+    @keyframes floaty{
+      0%,100%{ transform:translateY(0px) translateX(0px); }
+      25%{ transform:translateY(-12px) translateX(8px); }
+      50%{ transform:translateY(8px) translateX(-10px); }
+      75%{ transform:translateY(-8px) translateX(6px); }
+    }
+
+    .hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    .cta-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:18px;
+      padding:14px 18px;
+      border-radius:16px;
+      text-decoration:none;
+      color:#111;
+      background:linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
+      font-weight:900;
+      box-shadow:0 18px 40px var(--theme-glow);
+      min-width:180px;
+    }
+
+    .flash{
+      animation:screenFlash .4s ease;
+    }
+
+    @keyframes screenFlash{
+      0%{ filter:brightness(1); }
+      30%{ filter:brightness(1.28); }
+      100%{ filter:brightness(1); }
     }
   </style>
 </head>
-<body>
-  <div class="ambient"></div>
-
-  <section id="joinView" class="screen">
-    <div class="glass">
-      <div class="eyebrow"><span class="dot"></span><span id="joinSessionLabel">CrowdCode</span></div>
-      <h1 class="title">Join the reveal</h1>
-      <p class="subtext">Your phone becomes one piece of a bigger shared moment. Enter your name and claim a tile.</p>
-
-      <div class="nickname-wrap">
-        <input id="nicknameInput" maxlength="24" placeholder="Your name or group name" />
-      </div>
-
-      <div class="actions">
-        <button id="joinBtn" class="primary">Join session</button>
-        <button id="readyBtn" class="secondary hidden">I'm ready</button>
-      </div>
-      <div class="tiny">Tip: turn up brightness and hold your phone in portrait mode for the reveal.</div>
+<body class="theme-nku phase-lobby">
+  <div class="nickname-wrap" id="nicknameWrap">
+    <div class="nickname-card">
+      <h1>Join the live experience</h1>
+      <p>Add a name so the host can see your phone in the room preview. You can also continue without one.</p>
+      <input id="nicknameInput" class="nickname-input" maxlength="24" placeholder="Enter a nickname" />
+      <button id="joinBtn" class="nickname-btn">Join session</button>
+      <button id="skipBtn" class="nickname-secondary">Continue without nickname</button>
     </div>
-  </section>
+  </div>
 
-  <section id="tileView" class="tile-screen hidden">
-    <div class="tile-index" id="tileIndexLabel">PHONE #1</div>
-    <div class="tile-main" id="tileMain">JOIN</div>
-    <div class="tile-caption" id="tileCaption">Waiting for the host…</div>
-  </section>
-
-  <section id="countdownView" class="tile-screen hidden">
-    <div class="tile-index">GET READY</div>
-    <div class="countdown" id="countdownNumber">3</div>
-    <div class="tile-caption">Hold your phone up when it hits zero.</div>
-  </section>
-
-  <section id="revealView" class="tile-screen hidden">
-    <div class="reveal-card">
-      <div class="reveal-headline" id="revealHeadline">Final Reveal</div>
-      <div class="reveal-subhead" id="revealSubhead">Thanks for joining the CrowdCode moment.</div>
-      <div class="actions" style="margin-top:18px;">
-        <a id="revealCta" class="cta primary" href="#" target="_blank" rel="noopener">Open link</a>
+  <div class="app" id="app">
+    <div class="topbar">
+      <div class="pill">
+        <span id="statusDot" class="dot"></span>
+        <span id="statusText">Connecting…</span>
+      </div>
+      <div class="pill">
+        <span id="sessionLabel">Session: —</span>
       </div>
     </div>
-  </section>
 
-  <section id="selfieView" class="screen hidden">
-    <div class="selfie-wrap">
-      <div class="eyebrow"><span class="dot"></span>Selfie / share moment</div>
-      <video id="camera" playsinline autoplay muted></video>
-      <canvas id="snapshot" class="hidden"></canvas>
-      <div class="selfie-actions">
-        <button id="captureBtn" class="primary">Capture selfie</button>
-        <button id="retakeBtn" class="secondary hidden">Retake</button>
-        <a id="downloadBtn" class="cta secondary hidden" download="crowdcode-selfie.png">Save image</a>
+    <div class="center" id="centerStage">
+      <div class="glow-orb orb-a"></div>
+      <div class="glow-orb orb-b"></div>
+      <div class="glow-orb orb-c"></div>
+
+      <div class="content">
+        <h1 class="headline" id="headline">Ready?</h1>
+        <div class="subhead" id="subhead">Waiting for the host to begin.</div>
+        <div class="tag" id="tag">Lobby</div>
+        <div id="ctaWrap"></div>
       </div>
-      <div class="tiny">Great for a post-event share moment after the final reveal.</div>
     </div>
-  </section>
+
+    <div class="footer">
+      <div class="small" id="nicknameLabel">Audience device</div>
+      <div class="small" id="slotLabel">Slot —</div>
+    </div>
+  </div>
 
   <script type="module">
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
     import {
       getDatabase,
       ref,
-      get,
       set,
       update,
+      get,
       onValue,
       onDisconnect,
       serverTimestamp
     } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 
-    // -----------------------------
-    // 1) ADD THE SAME FIREBASE CONFIG
-    // -----------------------------
     const firebaseConfig = {
       apiKey: "AIzaSyDG34fpXimkHbqiLD0YFbM1FuSUlLW7FSo",
       authDomain: "crowdcode-713e4.firebaseapp.com",
@@ -319,220 +491,316 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const sessionId = new URLSearchParams(window.location.search).get('session');
+    const els = {
+      app: document.getElementById('app'),
+      nicknameWrap: document.getElementById('nicknameWrap'),
+      nicknameInput: document.getElementById('nicknameInput'),
+      joinBtn: document.getElementById('joinBtn'),
+      skipBtn: document.getElementById('skipBtn'),
+      statusDot: document.getElementById('statusDot'),
+      statusText: document.getElementById('statusText'),
+      sessionLabel: document.getElementById('sessionLabel'),
+      centerStage: document.getElementById('centerStage'),
+      headline: document.getElementById('headline'),
+      subhead: document.getElementById('subhead'),
+      tag: document.getElementById('tag'),
+      ctaWrap: document.getElementById('ctaWrap'),
+      nicknameLabel: document.getElementById('nicknameLabel'),
+      slotLabel: document.getElementById('slotLabel')
+    };
+
+    const url = new URL(window.location.href);
+    const sessionId = url.searchParams.get('session');
+
     if (!sessionId) {
-      document.body.innerHTML = '<div style="padding:24px;color:white;font-family:Inter,sans-serif;">Missing session code.</div>';
+      els.headline.textContent = 'Missing session';
+      els.subhead.textContent = 'Open this page from the host QR code or join link.';
+      els.tag.textContent = 'Error';
       throw new Error('Missing session ID');
     }
 
-    const els = {
-      joinView: document.getElementById('joinView'),
-      tileView: document.getElementById('tileView'),
-      countdownView: document.getElementById('countdownView'),
-      revealView: document.getElementById('revealView'),
-      selfieView: document.getElementById('selfieView'),
-      nicknameInput: document.getElementById('nicknameInput'),
-      joinBtn: document.getElementById('joinBtn'),
-      readyBtn: document.getElementById('readyBtn'),
-      joinSessionLabel: document.getElementById('joinSessionLabel'),
-      tileIndexLabel: document.getElementById('tileIndexLabel'),
-      tileMain: document.getElementById('tileMain'),
-      tileCaption: document.getElementById('tileCaption'),
-      countdownNumber: document.getElementById('countdownNumber'),
-      revealHeadline: document.getElementById('revealHeadline'),
-      revealSubhead: document.getElementById('revealSubhead'),
-      revealCta: document.getElementById('revealCta'),
-      camera: document.getElementById('camera'),
-      snapshot: document.getElementById('snapshot'),
-      captureBtn: document.getElementById('captureBtn'),
-      retakeBtn: document.getElementById('retakeBtn'),
-      downloadBtn: document.getElementById('downloadBtn')
-    };
+    els.sessionLabel.textContent = `Session: ${sessionId}`;
 
     const sessionRef = ref(db, `crowdcode/sessions/${sessionId}`);
     const participantsRef = ref(db, `crowdcode/sessions/${sessionId}/participants`);
 
-    let participantId = localStorage.getItem(`crowdcode:${sessionId}:participantId`) || crypto.randomUUID().slice(0, 12);
-    localStorage.setItem(`crowdcode:${sessionId}:participantId`, participantId);
+    let participantId = localStorage.getItem(`crowdcode:${sessionId}:participantId`);
+    if (!participantId) {
+      participantId = crypto.randomUUID().slice(0, 12);
+      localStorage.setItem(`crowdcode:${sessionId}:participantId`, participantId);
+    }
 
     const participantRef = ref(db, `crowdcode/sessions/${sessionId}/participants/${participantId}`);
 
     const state = {
       session: null,
       participant: null,
-      countdownTimer: null,
-      stream: null
+      joined: false
     };
 
-    function show(view) {
-      [els.joinView, els.tileView, els.countdownView, els.revealView, els.selfieView].forEach(v => v.classList.add('hidden'));
-      view.classList.remove('hidden');
+    function safeTheme(theme) {
+      return ['nku', 'recruiting', 'donor', 'classroom'].includes(theme) ? theme : 'nku';
     }
 
-    function claimTileIndex(participants, tiles) {
-      const used = new Set(
-        Object.entries(participants || {})
-          .filter(([id]) => id !== participantId)
-          .map(([, p]) => p.tileIndex)
-          .filter(v => Number.isInteger(v))
-      );
-      for (let i = 0; i < tiles.length; i++) {
-        if (!used.has(i)) return i;
-      }
-      return Object.keys(participants || {}).length;
+    function applyThemeClass(theme) {
+      document.body.classList.remove('theme-nku', 'theme-recruiting', 'theme-donor', 'theme-classroom');
+      document.body.classList.add(`theme-${safeTheme(theme)}`);
     }
 
-    async function joinSession() {
-      const sessionSnap = await get(sessionRef);
-      if (!sessionSnap.exists()) {
-        alert('This session was not found.');
-        return;
-      }
-      const session = sessionSnap.val();
-      const participantsSnap = await get(participantsRef);
-      const participants = participantsSnap.val() || {};
-      const nickname = els.nicknameInput.value.trim() || `Phone ${Math.floor(Math.random() * 90) + 10}`;
-      const tiles = session.tiles || [];
-      const existing = participants[participantId];
-      const tileIndex = Number.isInteger(existing?.tileIndex) ? existing.tileIndex : claimTileIndex(participants, tiles);
-      const tileText = tiles[tileIndex] || `#${tileIndex + 1}`;
+    function applyPhaseClass(phase) {
+      document.body.classList.remove('phase-lobby', 'phase-countdown', 'phase-reveal', 'phase-selfie');
+      const safePhase = ['lobby', 'countdown', 'reveal', 'selfie'].includes(phase) ? phase : 'lobby';
+      document.body.classList.add(`phase-${safePhase}`);
+    }
+
+    function escapeHtml(str = '') {
+      return String(str).replace(/[&<>"]/g, s => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;'
+      }[s]));
+    }
+
+    function getSavedNickname() {
+      return localStorage.getItem(`crowdcode:${sessionId}:nickname`) || '';
+    }
+
+    function saveNickname(name) {
+      localStorage.setItem(`crowdcode:${sessionId}:nickname`, name);
+    }
+
+    async function joinSession(name = '') {
+      const cleanName = String(name || '').trim().slice(0, 24);
+      saveNickname(cleanName);
 
       await set(participantRef, {
-        nickname,
-        tileIndex,
-        tileText,
-        joinedAt: existing?.joinedAt || Date.now(),
+        participantId,
+        nickname: cleanName || '',
+        joinedAt: Date.now(),
         ready: true,
         online: true,
-        updatedAt: serverTimestamp(),
-        userAgent: navigator.userAgent
+        tileIndex: 0,
+        tileText: '',
+        groupIndex: 0,
+        slotNumber: null,
+        updatedAt: Date.now(),
+        heartbeatAt: serverTimestamp()
       });
-      onDisconnect(participantRef).update({ online: false, ready: false, updatedAt: serverTimestamp() });
-      els.readyBtn.classList.remove('hidden');
+
+      onDisconnect(participantRef).update({
+        online: false,
+        ready: false,
+        disconnectedAt: Date.now()
+      });
+
+      state.joined = true;
+      els.nicknameWrap.classList.add('hidden');
+      els.nicknameLabel.textContent = cleanName || 'Audience device';
     }
 
-    async function setReady() {
-      await update(participantRef, { ready: true, online: true, updatedAt: serverTimestamp() });
+    function updateLobbyView(theme) {
+      if (theme === 'recruiting') {
+        els.headline.textContent = 'Get Ready';
+        els.subhead.textContent = 'Your phone is now part of a live showcase experience.';
+        els.tag.textContent = 'Recruiting Event';
+        return;
+      }
+
+      if (theme === 'donor') {
+        els.headline.textContent = 'Welcome';
+        els.subhead.textContent = 'You are part of a live innovation and impact experience.';
+        els.tag.textContent = 'Donor Event';
+        return;
+      }
+
+      if (theme === 'classroom') {
+        els.headline.textContent = 'Ready to Learn?';
+        els.subhead.textContent = 'Your phone is connected for a live classroom demonstration.';
+        els.tag.textContent = 'Classroom Demo';
+        return;
+      }
+
+      els.headline.textContent = 'Ready?';
+      els.subhead.textContent = 'Waiting for the host to begin.';
+      els.tag.textContent = 'NKU Experience';
     }
 
-    function updateTileView() {
-      const p = state.participant || {};
-      const session = state.session || {};
-      els.joinSessionLabel.textContent = session.sessionName || `Session ${sessionId}`;
-      els.tileIndexLabel.textContent = `PHONE #${(p.tileIndex ?? 0) + 1}`;
-      els.tileMain.textContent = p.tileText || 'JOIN';
-      els.tileCaption.textContent = session.sessionName || 'Waiting for the host…';
-      els.revealHeadline.textContent = session.finalHeadline || 'Final Reveal';
-      els.revealSubhead.textContent = session.finalSubhead || 'Thanks for joining.';
-      els.revealCta.href = session.ctaUrl || '#';
-      els.revealCta.textContent = session.ctaUrl ? 'Open link' : 'Thanks for joining';
-      if (!session.ctaUrl) els.revealCta.removeAttribute('target');
+    function renderCTAButton(url) {
+      if (!url) {
+        els.ctaWrap.innerHTML = '';
+        return;
+      }
+
+      els.ctaWrap.innerHTML = `
+        <a class="cta-btn" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">
+          Open Link
+        </a>
+      `;
     }
 
-    function runCountdown() {
-      if (state.countdownTimer) clearInterval(state.countdownTimer);
-      const targetAt = state.session?.countdownTargetAt;
-      if (!targetAt) return;
-      const tick = () => {
-        const value = Math.max(0, Math.ceil((targetAt - Date.now()) / 1000));
-        els.countdownNumber.textContent = value;
-        if (value <= 0) clearInterval(state.countdownTimer);
-      };
-      tick();
-      state.countdownTimer = setInterval(tick, 120);
+    function flashScreen() {
+      document.body.classList.remove('flash');
+      void document.body.offsetWidth;
+      document.body.classList.add('flash');
     }
 
-    async function ensureSelfieCamera() {
-      if (state.stream) return;
+    function renderView() {
+      const session = state.session;
+      const participant = state.participant || {};
+      if (!session) return;
+
+      const theme = safeTheme(session.themePreset || 'nku');
+      const phase = session.phase || 'lobby';
+      const nickname = participant.nickname || getSavedNickname() || 'Audience device';
+      const tileText = participant.tileText || '•';
+
+      applyThemeClass(theme);
+      applyPhaseClass(phase);
+
+      els.nicknameLabel.textContent = nickname;
+      els.slotLabel.textContent = `Slot ${participant.slotNumber || '—'}`;
+
+      if (phase === 'lobby') {
+        updateLobbyView(theme);
+        renderCTAButton('');
+        return;
+      }
+
+      if (phase === 'countdown') {
+        const now = Date.now();
+        const targetAt = session.countdownTargetAt || now;
+        const remaining = Math.max(0, Math.ceil((targetAt - now) / 1000));
+        els.headline.textContent = remaining > 0 ? remaining : 'GO';
+        els.subhead.textContent = participant.tileText
+          ? `Your tile: ${participant.tileText}`
+          : 'Get ready for the reveal.';
+        els.tag.textContent = 'Countdown';
+        renderCTAButton('');
+        return;
+      }
+
+      if (phase === 'reveal') {
+        if (session.layoutType === 'cta') {
+          els.headline.textContent = session.finalHeadline || 'Join the Future';
+          els.subhead.textContent = session.finalSubhead || 'Open the link below.';
+          els.tag.textContent = 'Call to Action';
+          renderCTAButton(session.ctaUrl || '');
+          flashScreen();
+          return;
+        }
+
+        if (session.assignmentMode === 'repeat' || session.assignmentMode === 'sections' || session.assignmentMode === 'unique') {
+          els.headline.textContent = tileText || session.finalHeadline || 'Reveal';
+          els.subhead.textContent = session.finalSubhead || session.sessionName || 'Live audience reveal';
+          els.tag.textContent = 'Reveal';
+          renderCTAButton('');
+          flashScreen();
+          return;
+        }
+
+        els.headline.textContent = session.finalHeadline || 'Reveal';
+        els.subhead.textContent = session.finalSubhead || session.sessionName || 'Live audience reveal';
+        els.tag.textContent = 'Reveal';
+        renderCTAButton('');
+        flashScreen();
+        return;
+      }
+
+      if (phase === 'selfie') {
+        els.headline.textContent = '📸';
+        els.subhead.textContent = session.finalSubhead || 'Smile — this is the celebration moment.';
+        els.tag.textContent = 'Selfie Moment';
+        renderCTAButton(session.ctaUrl || '');
+        return;
+      }
+    }
+
+    async function ensureJoinedSilentlyIfPossible() {
+      const savedNickname = getSavedNickname();
       try {
-        state.stream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: 'user', width: { ideal: 1080 }, height: { ideal: 1920 } },
-          audio: false
-        });
-        els.camera.srcObject = state.stream;
+        const snap = await get(participantRef);
+        if (snap.exists()) {
+          state.joined = true;
+          state.participant = snap.val();
+          els.nicknameWrap.classList.add('hidden');
+          els.nicknameLabel.textContent = state.participant.nickname || savedNickname || 'Audience device';
+
+          await update(participantRef, {
+            online: true,
+            ready: true,
+            heartbeatAt: serverTimestamp(),
+            updatedAt: Date.now()
+          });
+
+          onDisconnect(participantRef).update({
+            online: false,
+            ready: false,
+            disconnectedAt: Date.now()
+          });
+
+          return;
+        }
+
+        if (savedNickname) {
+          await joinSession(savedNickname);
+        }
       } catch (err) {
         console.error(err);
       }
     }
 
-    function applyPhase() {
-      const phase = state.session?.phase || 'lobby';
-      updateTileView();
-      if (phase === 'lobby') show(state.participant ? els.tileView : els.joinView);
-      if (phase === 'countdown') {
-        show(els.countdownView);
-        runCountdown();
+    els.joinBtn.addEventListener('click', async () => {
+      try {
+        await joinSession(els.nicknameInput.value);
+      } catch (err) {
+        console.error(err);
       }
-      if (phase === 'reveal') show(els.revealView);
-      if (phase === 'selfie') {
-        show(els.selfieView);
-        ensureSelfieCamera();
-      }
-    }
+    });
 
-    onValue(sessionRef, snap => {
+    els.skipBtn.addEventListener('click', async () => {
+      try {
+        await joinSession('');
+      } catch (err) {
+        console.error(err);
+      }
+    });
+
+    els.nicknameInput.addEventListener('keydown', async (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        await joinSession(els.nicknameInput.value);
+      }
+    });
+
+    onValue(sessionRef, (snap) => {
       const data = snap.val();
-      if (!data) return;
-      state.session = data;
-      applyPhase();
-    });
-
-    onValue(participantRef, snap => {
-      state.participant = snap.val();
-      if (state.participant) {
-        els.readyBtn.classList.remove('hidden');
-        if ((state.session?.phase || 'lobby') === 'lobby') show(els.tileView);
+      if (!data) {
+        els.statusDot.classList.remove('live');
+        els.statusText.textContent = 'Session not found';
+        els.headline.textContent = 'Session unavailable';
+        els.subhead.textContent = 'Please rescan the QR code or ask the host to restart.';
+        els.tag.textContent = 'Offline';
+        return;
       }
-      updateTileView();
+
+      state.session = data;
+      els.statusDot.classList.add('live');
+      els.statusText.textContent = 'Connected live';
+      renderView();
+    }, (error) => {
+      console.error(error);
+      els.statusDot.classList.remove('live');
+      els.statusText.textContent = 'Connection problem';
     });
 
-    els.joinBtn.addEventListener('click', () => joinSession().catch(console.error));
-    els.readyBtn.addEventListener('click', () => setReady().catch(console.error));
-    els.nicknameInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') joinSession().catch(console.error);
+    onValue(participantRef, (snap) => {
+      state.participant = snap.val() || {};
+      renderView();
     });
 
-    els.captureBtn.addEventListener('click', () => {
-      const video = els.camera;
-      const canvas = els.snapshot;
-      if (!video.videoWidth || !video.videoHeight) return;
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      const grad = ctx.createLinearGradient(0, canvas.height * 0.6, 0, canvas.height);
-      grad.addColorStop(0, 'rgba(16,16,16,0)');
-      grad.addColorStop(1, 'rgba(16,16,16,.72)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#f7b718';
-      ctx.font = `700 ${Math.max(32, canvas.width * 0.05)}px Inter, sans-serif`;
-      ctx.fillText(state.session?.finalHeadline || 'CrowdCode', canvas.width * 0.08, canvas.height * 0.84);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = `500 ${Math.max(22, canvas.width * 0.032)}px Inter, sans-serif`;
-      ctx.fillText(state.session?.finalSubhead || '', canvas.width * 0.08, canvas.height * 0.89);
-
-      const dataUrl = canvas.toDataURL('image/png');
-      els.downloadBtn.href = dataUrl;
-      els.snapshot.classList.remove('hidden');
-      els.camera.classList.add('hidden');
-      els.downloadBtn.classList.remove('hidden');
-      els.retakeBtn.classList.remove('hidden');
-      els.captureBtn.classList.add('hidden');
-    });
-
-    els.retakeBtn.addEventListener('click', () => {
-      els.snapshot.classList.add('hidden');
-      els.camera.classList.remove('hidden');
-      els.downloadBtn.classList.add('hidden');
-      els.retakeBtn.classList.add('hidden');
-      els.captureBtn.classList.remove('hidden');
-    });
-
-    updateTileView();
+    await ensureJoinedSilentlyIfPossible();
+    els.nicknameInput.value = getSavedNickname();
   </script>
 </body>
 </html>
