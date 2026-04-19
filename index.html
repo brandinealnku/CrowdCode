@@ -3,38 +3,292 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CrowdCode</title>
-  <style>
-    :root{--bg:#0f1021;--bg2:#1f2450;--panel:rgba(255,255,255,.08);--border:rgba(255,255,255,.14);--text:#f6f7fb;--muted:#c6c9d9;--gold:#f7b718;--pink:#ff66c4}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(247,183,24,.16), transparent 25%),radial-gradient(circle at bottom right, rgba(255,102,196,.14), transparent 20%),linear-gradient(135deg,var(--bg),var(--bg2));min-height:100vh;display:grid;place-items:center;padding:20px}
-    .wrap{max-width:1100px;width:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:22px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:26px;backdrop-filter:blur(14px)}
-    h1{font-size:clamp(2rem,5vw,4rem);margin:0 0 10px}p{color:var(--muted);line-height:1.55}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
-    a.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:14px 18px;border-radius:14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--gold),#ffd970);color:#111}.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:var(--text)}
-    ul{margin:16px 0 0;padding-left:18px;color:var(--muted);line-height:1.7}.hero{padding:10px 4px}.badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--border);font-weight:700;margin-bottom:16px}.card{padding:18px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);margin-bottom:14px}.tiny{font-size:.9rem}
-    @media(max-width:900px){.wrap{grid-template-columns:1fr}}
-  </style>
+  <title>INF 286 Demo Day | Host Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero panel">
-      <div class="badge">CrowdCode • Multi-event GitHub Pages build</div>
-      <h1>Turn a room full of phones into one shared experience.</h1>
-      <p>This starter includes a host control room, audience phone experience, Firebase-powered live sync, reusable event presets, session launching, customizable reveals, mosaic mode, audio reactive settings, and GitHub Pages friendly static files.</p>
-      <div class="cta">
-        <a class="btn primary" href="./host.html">Open Host Dashboard</a>
-        <a class="btn secondary" href="./audience.html">Open Audience Page</a>
+<div class="container grid grid-2">
+  <aside class="panel sidebar">
+    <div class="brand">
+      <div class="brand-badge">286</div>
+      <div>
+        <h1>INF 286 Demo Day</h1>
+        <p>Host dashboard for launch moments, voting, and project showcases.</p>
       </div>
-      <ul>
-        <li>Create reusable events for multiple open houses, classroom reveals, admitted-student events, and conferences.</li>
-        <li>Launch a new live session with a fresh join code any time.</li>
-        <li>Use Firebase Realtime Database as the live state layer while keeping the site static for GitHub Pages.</li>
-      </ul>
+    </div>
+
+    <div class="row space" style="margin-bottom:18px;">
+      <div class="pill"><span id="statusDot" class="dot"></span><span id="statusText">Connecting…</span></div>
+      <div class="pill">Session <span id="sessionCode">—</span></div>
+    </div>
+
+    <div class="section-title">Event setup</div>
+    <div class="field"><label for="title">Main title</label><input id="title" value="INF 286 Demo Day 🚀"></div>
+    <div class="field"><label for="subtitle">Subtitle / hook</label><textarea id="subtitle">You are not just turning in projects. You are launching them.</textarea></div>
+    <div class="grid grid-3">
+      <div class="field"><label for="instructor">Instructor</label><input id="instructor" value="Brandi Neal"></div>
+      <div class="field"><label for="course">Course</label><input id="course" value="INF 286: Intro to Web Development"></div>
+      <div class="field"><label for="countdownSeconds">Countdown seconds</label><input id="countdownSeconds" type="number" min="3" max="20" value="8"></div>
+    </div>
+    <div class="field"><label for="hypeTiles">Phone tiles (use | between words)</label><input id="hypeTiles" value="BUILD|DESIGN|CODE|SHIP"></div>
+    <div class="grid grid-3">
+      <div class="field"><label for="finalHeadline">Final headline</label><input id="finalHeadline" value="YOU BUILT THIS"></div>
+      <div class="field" style="grid-column: span 2;"><label for="finalSubhead">Final subhead</label><input id="finalSubhead" value="INF 286 Final Projects • Ready to Launch 🚀"></div>
+    </div>
+
+    <div class="section-title">Projects</div>
+    <div class="field">
+      <label for="projectSeed">Project list</label>
+      <textarea id="projectSeed"></textarea>
+      <div class="small">Format each line as: <strong>Team|Project Title|Category|Pitch|Demo URL|Repo URL|Members|Tech</strong></div>
+    </div>
+
+    <div class="section-title">Quick actions</div>
+    <div class="button-grid">
+      <button class="btn btn-primary" id="saveBtn">Save setup</button>
+      <button class="btn btn-secondary" id="seedBtn">Save projects</button>
+      <button class="btn btn-secondary" id="lobbyBtn">Open lobby</button>
+      <button class="btn btn-secondary" id="countdownBtn">Start countdown</button>
+      <button class="btn btn-hot" id="revealBtn">Final reveal</button>
+      <button class="btn btn-secondary" id="votingBtn">Open voting</button>
+      <button class="btn btn-secondary full" id="featureBtn">Feature selected project</button>
+      <button class="btn btn-danger full" id="resetBtn">Reset voting + reactions</button>
+    </div>
+
+    <div class="section-title">Audience links</div>
+    <div class="join-card">
+      <div id="qrcode" class="qr-box"></div>
+      <div>
+        <h3 style="margin:0 0 8px;">Join from phones</h3>
+        <div class="small">Students scan to join the hype wall and cast a vote during demo day.</div>
+        <p style="margin:10px 0 6px;"><strong>Audience page</strong></p>
+        <code id="joinUrl" class="codebox"></code>
+        <div class="row" style="margin-top:10px;">
+          <button class="btn btn-secondary" id="copyJoinBtn">Copy audience link</button>
+          <button class="btn btn-secondary" id="openAudienceBtn">Open audience page</button>
+        </div>
+        <p style="margin:14px 0 6px;"><strong>Gallery page</strong></p>
+        <code id="galleryUrl" class="codebox"></code>
+      </div>
+    </div>
+  </aside>
+
+  <main class="panel content">
+    <section class="hero">
+      <div class="eyebrow">Live Classroom Launch</div>
+      <h2 id="heroTitle">This is not a final project… this is your launch.</h2>
+      <p id="heroSubtitle">Get phones out, build energy, and turn your class into a demo day experience worth filming.</p>
     </section>
-    <aside class="panel">
-      <div class="card"><strong>Files included</strong><p class="tiny">index.html, host.html, audience.html, README.md</p></div>
-      <div class="card"><strong>Setup</strong><p class="tiny">Paste your Firebase config into both HTML files, upload to a GitHub repo, and enable GitHub Pages.</p></div>
-      <div class="card"><strong>Best first test</strong><p class="tiny">Create an event, launch a session, open audience.html on a phone, join, then start the countdown and reveal.</p></div>
-    </aside>
-  </div>
+
+    <section class="stat-grid">
+      <div class="stat"><div class="label">Connected phones</div><div id="connectedCount" class="value">0</div></div>
+      <div class="stat"><div class="label">Projects loaded</div><div id="projectCount" class="value">0</div></div>
+      <div class="stat"><div class="label">Current phase</div><div id="phaseText" class="value" style="font-size:1.2rem;">LOBBY</div></div>
+      <div class="stat"><div class="label">Countdown</div><div id="countdownDisplay" class="value">—</div></div>
+      <div class="stat"><div class="label">Voting status</div><div id="votingStatus" class="value" style="font-size:1.1rem;">CLOSED</div></div>
+    </section>
+
+    <section class="energy">
+      <div class="row space" style="margin-bottom:10px;"><div><strong>Audience energy</strong><div class="small">A quick visual for how alive the room feels.</div></div><div id="energyLabel" class="small">Warming up…</div></div>
+      <div class="bar"><div id="energyFill" class="fill"></div></div>
+    </section>
+
+    <section style="margin-bottom:18px;">
+      <div class="topbar"><h3 style="margin:0;">Live phone wall preview</h3><div class="notice" id="featuredNotice">No featured project selected yet.</div></div>
+      <div id="phoneWall" class="phone-grid"></div>
+    </section>
+
+    <section>
+      <div class="topbar"><h3 style="margin:0;">Project showcase</h3><select id="featureSelect" style="max-width:360px;"></select></div>
+      <div id="projectCards" class="cards"></div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+<script type="module">
+import {
+  db, ref, update, set, get, onValue, remove,
+  ensureSession, getSessionId, sessionRef, participantsRef, projectsRef, votesRef,
+  defaultSession, buildAudienceUrl, buildGalleryUrl, projectsToText, saveProjects, escapeHtml
+} from './assets/app.js';
+
+const sessionId = getSessionId();
+const els = {
+  title: document.getElementById('title'), subtitle: document.getElementById('subtitle'), instructor: document.getElementById('instructor'),
+  course: document.getElementById('course'), countdownSeconds: document.getElementById('countdownSeconds'), hypeTiles: document.getElementById('hypeTiles'),
+  finalHeadline: document.getElementById('finalHeadline'), finalSubhead: document.getElementById('finalSubhead'), projectSeed: document.getElementById('projectSeed'),
+  saveBtn: document.getElementById('saveBtn'), seedBtn: document.getElementById('seedBtn'), lobbyBtn: document.getElementById('lobbyBtn'), countdownBtn: document.getElementById('countdownBtn'),
+  revealBtn: document.getElementById('revealBtn'), votingBtn: document.getElementById('votingBtn'), featureBtn: document.getElementById('featureBtn'), resetBtn: document.getElementById('resetBtn'),
+  qrcode: document.getElementById('qrcode'), joinUrl: document.getElementById('joinUrl'), galleryUrl: document.getElementById('galleryUrl'), copyJoinBtn: document.getElementById('copyJoinBtn'),
+  openAudienceBtn: document.getElementById('openAudienceBtn'), connectedCount: document.getElementById('connectedCount'), projectCount: document.getElementById('projectCount'),
+  phaseText: document.getElementById('phaseText'), countdownDisplay: document.getElementById('countdownDisplay'), votingStatus: document.getElementById('votingStatus'),
+  energyFill: document.getElementById('energyFill'), energyLabel: document.getElementById('energyLabel'), phoneWall: document.getElementById('phoneWall'), projectCards: document.getElementById('projectCards'),
+  statusDot: document.getElementById('statusDot'), statusText: document.getElementById('statusText'), sessionCode: document.getElementById('sessionCode'), heroTitle: document.getElementById('heroTitle'),
+  heroSubtitle: document.getElementById('heroSubtitle'), featureSelect: document.getElementById('featureSelect'), featuredNotice: document.getElementById('featuredNotice')
+};
+
+let state = { session: defaultSession(), participants:{}, projects:{}, timer:null };
+els.sessionCode.textContent = sessionId;
+
+function payload(extra={}){
+  return {
+    title: els.title.value.trim() || 'INF 286 Demo Day 🚀',
+    subtitle: els.subtitle.value.trim() || 'You are not just turning in projects. You are launching them.',
+    instructor: els.instructor.value.trim() || 'Instructor',
+    course: els.course.value.trim() || 'Course',
+    countdownSeconds: Number(els.countdownSeconds.value) || 8,
+    hypeTiles: els.hypeTiles.value.split('|').map(s => s.trim()).filter(Boolean),
+    finalHeadline: els.finalHeadline.value.trim() || 'YOU BUILT THIS',
+    finalSubhead: els.finalSubhead.value.trim() || 'Ready to launch',
+    updatedAt: Date.now(),
+    ...extra
+  };
+}
+
+function updateEnergy(){
+  const count = Object.keys(state.participants || {}).length;
+  const width = Math.min(100, count * 8);
+  els.energyFill.style.width = `${width}%`;
+  let label = 'Warming up…';
+  if(count >= 4) label = 'Phones are coming online';
+  if(count >= 8) label = 'This is feeling real';
+  if(count >= 12) label = 'Demo day energy';
+  if(count >= 20) label = 'Packed room';
+  els.energyLabel.textContent = label;
+}
+
+function renderProjects(){
+  const projects = Object.values(state.projects || {}).sort((a,b) => (b.votes||0) - (a.votes||0) || (a.createdAt||0) - (b.createdAt||0));
+  els.projectCount.textContent = projects.length;
+  els.featureSelect.innerHTML = '<option value="">Select featured project</option>' + projects.map(p => `<option value="${escapeHtml(p.id)}">${escapeHtml(p.team)} — ${escapeHtml(p.title)}</option>`).join('');
+  if(state.session.featuredProjectId) els.featureSelect.value = state.session.featuredProjectId;
+  els.projectCards.innerHTML = projects.length ? projects.map(p => `
+    <article class="project-card ${p.id === state.session.featuredProjectId ? 'featured' : ''}">
+      <div class="meta"><span class="tag">${escapeHtml(p.team)}</span><span class="tag">${escapeHtml(p.category)}</span></div>
+      <h3>${escapeHtml(p.title)}</h3>
+      <p class="muted">${escapeHtml(p.pitch)}</p>
+      <div class="small"><strong>Members:</strong> ${escapeHtml(p.members || '—')}</div>
+      <div class="small" style="margin-top:4px;"><strong>Tech:</strong> ${escapeHtml(p.tech || '—')}</div>
+      <div class="score">${p.votes || 0}</div>
+      <div class="muted">votes</div>
+      <div class="link-row">
+        <a class="action" target="_blank" rel="noopener noreferrer" href="${escapeHtml(p.demoUrl || '#')}">Open demo</a>
+        <a class="action" target="_blank" rel="noopener noreferrer" href="${escapeHtml(p.repoUrl || '#')}">View repo</a>
+      </div>
+    </article>
+  `).join('') : '<div class="empty panel">No projects loaded yet.</div>';
+
+  const featured = projects.find(p => p.id === state.session.featuredProjectId);
+  els.featuredNotice.textContent = featured ? `Featured: ${featured.team} — ${featured.title}` : 'No featured project selected yet.';
+}
+
+function renderPhones(){
+  const participants = Object.entries(state.participants || {}).sort((a,b) => (a[1].joinedAt||0) - (b[1].joinedAt||0));
+  els.connectedCount.textContent = participants.length;
+  const tiles = state.session.hypeTiles || ['BUILD','DESIGN','CODE','SHIP'];
+  const phase = state.session.phase || 'lobby';
+  els.phaseText.textContent = phase.toUpperCase();
+  els.votingStatus.textContent = state.session.allowVoting ? 'OPEN' : 'CLOSED';
+  els.votingStatus.className = 'value ' + (state.session.allowVoting ? 'votes-open' : 'votes-closed');
+  if(!participants.length){
+    els.phoneWall.innerHTML = '<div class="empty panel">Ask students to scan the audience QR code. Connected phones will appear here.</div>';
+    updateEnergy();
+    return;
+  }
+  els.phoneWall.innerHTML = participants.map(([id,p], idx) => {
+    let main = tiles[idx % tiles.length] || 'BUILD';
+    let sub = state.session.course || 'INF 286';
+    let tag = 'READY';
+    if(phase === 'countdown'){ main = String(Math.max(1, Number(els.countdownDisplay.textContent) || 0)); sub = 'Get ready to launch'; tag = 'COUNTDOWN'; }
+    if(phase === 'reveal'){ main = state.session.finalHeadline || 'YOU BUILT THIS'; sub = state.session.finalSubhead || 'Launch moment'; tag = 'LAUNCH'; }
+    if(phase === 'voting'){ main = 'VOTE'; sub = 'Pick your favorite project'; tag = 'DEMO DAY'; }
+    return `<div class="phone"><div class="small">${escapeHtml(p.nickname || `Phone ${idx+1}`)}</div><div class="phone-slot"><div><div class="big">${escapeHtml(main)}</div><div class="sub">${escapeHtml(sub)}</div><div class="tag" style="margin-top:10px;">${escapeHtml(tag)}</div></div></div><div class="small">${escapeHtml(id.slice(0,5).toUpperCase())}</div></div>`;
+  }).join('');
+  updateEnergy();
+}
+
+function syncCountdown(){
+  clearInterval(state.timer);
+  if(state.session.phase !== 'countdown' || !state.session.countdownTargetAt){ els.countdownDisplay.textContent = '—'; return; }
+  const tick = async () => {
+    const remaining = Math.max(0, Math.ceil((state.session.countdownTargetAt - Date.now()) / 1000));
+    els.countdownDisplay.textContent = remaining;
+    if(remaining <= 0){
+      clearInterval(state.timer);
+      await update(sessionRef(sessionId), payload({ phase:'reveal', countdownTargetAt:null }));
+    }
+  };
+  tick();
+  state.timer = setInterval(tick, 250);
+}
+
+async function renderQR(){
+  const join = buildAudienceUrl(sessionId);
+  const gallery = buildGalleryUrl(sessionId);
+  els.joinUrl.textContent = join;
+  els.galleryUrl.textContent = gallery;
+  els.qrcode.innerHTML = '';
+  QRCode.toCanvas(join, { width:136, margin:1 }, (err, canvas) => { if(!err) els.qrcode.appendChild(canvas); });
+}
+
+function syncFields(data){
+  els.title.value = data.title || '';
+  els.subtitle.value = data.subtitle || '';
+  els.instructor.value = data.instructor || '';
+  els.course.value = data.course || '';
+  els.countdownSeconds.value = data.countdownSeconds || 8;
+  els.hypeTiles.value = (data.hypeTiles || []).join('|');
+  els.finalHeadline.value = data.finalHeadline || '';
+  els.finalSubhead.value = data.finalSubhead || '';
+  els.heroTitle.textContent = data.phase === 'reveal' ? (data.finalHeadline || 'YOU BUILT THIS') : 'This is not a final project… this is your launch.';
+  els.heroSubtitle.textContent = data.phase === 'reveal' ? (data.finalSubhead || '') : (data.subtitle || 'Get phones out and build the energy.');
+}
+
+els.saveBtn.onclick = async () => update(sessionRef(sessionId), payload({ phase: state.session.phase || 'lobby' }));
+els.seedBtn.onclick = async () => { await saveProjects(sessionId, els.projectSeed.value); };
+els.lobbyBtn.onclick = async () => update(sessionRef(sessionId), payload({ phase:'lobby', allowVoting:false, countdownTargetAt:null }));
+els.countdownBtn.onclick = async () => {
+  const startAt = Date.now() + 1200;
+  const targetAt = startAt + (Number(els.countdownSeconds.value) || 8) * 1000;
+  await update(sessionRef(sessionId), payload({ phase:'countdown', allowVoting:false, countdownTargetAt:targetAt }));
+};
+els.revealBtn.onclick = async () => update(sessionRef(sessionId), payload({ phase:'reveal', allowVoting:false, countdownTargetAt:null }));
+els.votingBtn.onclick = async () => update(sessionRef(sessionId), payload({ phase:'voting', allowVoting: !state.session.allowVoting, countdownTargetAt:null }));
+els.featureBtn.onclick = async () => update(sessionRef(sessionId), payload({ featuredProjectId: els.featureSelect.value || '' }));
+els.resetBtn.onclick = async () => {
+  await remove(votesRef(sessionId));
+  const projects = state.projects || {};
+  const patch = {};
+  Object.values(projects).forEach(p => patch[`${p.id}/votes`] = 0);
+  await update(projectsRef(sessionId), patch);
+  await remove(ref(db, `demoDay/sessions/${sessionId}/reactions`));
+};
+els.copyJoinBtn.onclick = async () => navigator.clipboard.writeText(els.joinUrl.textContent);
+els.openAudienceBtn.onclick = () => window.open(els.joinUrl.textContent, '_blank');
+
+await ensureSession(sessionId);
+await renderQR();
+
+onValue(sessionRef(sessionId), snap => {
+  state.session = { ...defaultSession(), ...(snap.val() || {}) };
+  els.statusDot.classList.add('live');
+  els.statusText.textContent = 'Live session connected';
+  syncFields(state.session);
+  renderProjects();
+  renderPhones();
+  syncCountdown();
+});
+
+onValue(participantsRef(sessionId), snap => { state.participants = snap.val() || {}; renderPhones(); });
+onValue(projectsRef(sessionId), snap => {
+  state.projects = snap.val() || {};
+  els.projectSeed.value = projectsToText(state.projects);
+  renderProjects();
+});
+</script>
 </body>
 </html>
