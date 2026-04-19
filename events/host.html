@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CrowdCode Host Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body data-page="host">
+  <div class="app-shell host-layout">
+    <aside class="sidebar glass">
+      <div class="brand-lockup">
+        <div class="brand-badge">CC</div>
+        <div>
+          <h1>Host Dashboard</h1>
+          <p>Launch and control live sessions</p>
+        </div>
+      </div>
+
+      <div class="status-box">
+        <span id="hostStatusDot" class="status-dot"></span>
+        <div>
+          <strong id="hostStatusText">Connecting…</strong>
+          <p class="small muted">Event data comes from your saved Firebase events.</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="eventSelect">Choose saved event</label>
+        <select id="eventSelect"></select>
+      </div>
+      <div class="button-row tight">
+        <button id="loadEventBtn" class="btn secondary">Load event</button>
+        <button id="launchSessionBtn" class="btn primary">Launch session</button>
+      </div>
+
+      <div class="field">
+        <label for="sessionCode">Live session code</label>
+        <input id="sessionCode" readonly placeholder="Launch a session" />
+      </div>
+
+      <div class="join-box">
+        <div id="qrcode" class="qr-box"></div>
+        <div>
+          <label class="asset-label">Audience join URL</label>
+          <code id="joinUrlText" class="join-url-box">Launch a session first.</code>
+          <div class="button-row tight">
+            <button id="copyJoinBtn" class="btn secondary">Copy join link</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="rule" />
+
+      <div class="field">
+        <label for="liveMode">Live reveal mode</label>
+        <select id="liveMode">
+          <option value="message">Message tiles</option>
+          <option value="repeat">Repeat tiles across room</option>
+          <option value="mosaic">Mosaic slices</option>
+          <option value="hero">Full-screen branded hero</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="liveHeadline">Live headline</label>
+        <input id="liveHeadline" />
+      </div>
+      <div class="field">
+        <label for="liveSubhead">Live subhead</label>
+        <input id="liveSubhead" />
+      </div>
+      <div class="field">
+        <label for="liveTiles">Tiles / phrase</label>
+        <textarea id="liveTiles"></textarea>
+      </div>
+      <div class="grid-3">
+        <div class="field">
+          <label for="liveCountdown">Countdown</label>
+          <input id="liveCountdown" type="number" min="3" max="20" />
+        </div>
+        <div class="field">
+          <label for="mosaicRows">Mosaic rows</label>
+          <input id="mosaicRows" type="number" min="1" max="10" value="4" />
+        </div>
+        <div class="field">
+          <label for="mosaicCols">Mosaic cols</label>
+          <input id="mosaicCols" type="number" min="1" max="10" value="6" />
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="saveLiveBtn" class="btn secondary">Save live settings</button>
+        <button id="openLobbyBtn" class="btn secondary">Lobby</button>
+        <button id="startCountdownBtn" class="btn secondary">Countdown</button>
+        <button id="finalRevealBtn" class="btn primary">Reveal</button>
+        <button id="selfieBtn" class="btn secondary">Selfie moment</button>
+        <button id="resetSessionBtn" class="btn ghost">Reset session</button>
+      </div>
+    </aside>
+
+    <main class="main-panel">
+      <section class="glass page-card">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Live preview</span>
+            <h2 id="previewTitle">No event loaded yet</h2>
+            <p id="previewSubtitle" class="muted">Choose a saved event and launch a live session.</p>
+          </div>
+          <div class="pill" id="phasePill">LOBBY</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="mini-card"><strong id="connectedCount">0</strong><p>Connected phones</p></div>
+          <div class="mini-card"><strong id="tileCount">0</strong><p>Tiles / cells</p></div>
+          <div class="mini-card"><strong id="countdownDisplay">—</strong><p>Countdown</p></div>
+          <div class="mini-card"><strong id="loadedEventName">—</strong><p>Loaded event</p></div>
+        </div>
+
+        <div class="preview-board" id="previewBoard">
+          <div class="hero-preview-empty">Launch a session to preview the live room.</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script type="module" src="./assets/app.js"></script>
+</body>
+</html>
