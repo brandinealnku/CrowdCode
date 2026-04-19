@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CrowdCode Admin Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body data-page="admin">
+  <div class="app-shell">
+    <aside class="sidebar glass">
+      <div class="brand-lockup">
+        <div class="brand-badge">CC</div>
+        <div>
+          <h1>CrowdCode Admin</h1>
+          <p>Multi-event setup studio</p>
+        </div>
+      </div>
+      <div class="status-box">
+        <span id="authStatusDot" class="status-dot"></span>
+        <div>
+          <strong id="authStatusText">Checking sign-in…</strong>
+          <p class="small muted">Anonymous demo mode works on free Firebase.</p>
+        </div>
+      </div>
+      <div class="stack-sm">
+        <button id="signInBtn" class="btn secondary">Sign in for demo</button>
+        <button id="signOutBtn" class="btn ghost">Sign out</button>
+      </div>
+      <hr class="rule" />
+      <nav class="nav-list">
+        <a href="#eventBuilder">Event Builder</a>
+        <a href="#savedEvents">Saved Events</a>
+        <a href="#assetLibrary">Asset Library</a>
+      </nav>
+      <p class="small muted">Tip: keep uploaded files small. Base64 assets in Realtime Database are best for logos, slide-sized graphics, and lightweight event art.</p>
+    </aside>
+
+    <main class="main-panel">
+      <section class="glass page-card" id="eventBuilder">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Step 1</span>
+            <h2>Build an event</h2>
+            <p class="muted">Create a reusable event profile with branding, copy, reveal defaults, and custom assets.</p>
+          </div>
+          <div class="pill">Reusable across sessions</div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="eventName">Event name</label>
+            <input id="eventName" placeholder="AI Literacy Day 2026" />
+          </div>
+          <div class="field">
+            <label for="eventSlug">Slug / short id</label>
+            <input id="eventSlug" placeholder="ai-literacy-day-2026" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="field">
+            <label for="orgName">Organization</label>
+            <input id="orgName" placeholder="NKU College of Informatics" />
+          </div>
+          <div class="field">
+            <label for="templateType">Event template</label>
+            <select id="templateType">
+              <option value="open-house">Open House</option>
+              <option value="ai-day" selected>AI Literacy Day</option>
+              <option value="conference">Conference Session</option>
+              <option value="classroom">Classroom Reveal</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="defaultMode">Default reveal mode</label>
+            <select id="defaultMode">
+              <option value="message" selected>Message tiles</option>
+              <option value="repeat">Repeat tiles across room</option>
+              <option value="mosaic">Mosaic slices</option>
+              <option value="hero">Full-screen branded hero</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="headline">Headline</label>
+            <input id="headline" placeholder="INF 125: AI Literacy" />
+          </div>
+          <div class="field">
+            <label for="subhead">Subhead</label>
+            <input id="subhead" placeholder="Scan to explore. Register for Fall 2026." />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="field">
+            <label for="ctaLabel">CTA label</label>
+            <input id="ctaLabel" value="Explore now" />
+          </div>
+          <div class="field">
+            <label for="ctaUrl">CTA URL</label>
+            <input id="ctaUrl" value="https://www.nku.edu/" />
+          </div>
+          <div class="field">
+            <label for="countdownSeconds">Countdown seconds</label>
+            <input id="countdownSeconds" type="number" min="3" max="20" value="8" />
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="field">
+            <label for="primaryColor">Primary color</label>
+            <input id="primaryColor" type="color" value="#f7b718" />
+          </div>
+          <div class="field">
+            <label for="accentColor">Accent color</label>
+            <input id="accentColor" type="color" value="#ff66c4" />
+          </div>
+          <div class="field">
+            <label for="bgColor">Background color</label>
+            <input id="bgColor" type="color" value="#111827" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tileInput">Tiles / phrase</label>
+          <textarea id="tileInput">AI|LITERACY|STARTS|HERE</textarea>
+          <p class="small muted">Use pipes for manual tile groups, or type a phrase and switch to repeat mode on the host.</p>
+        </div>
+
+        <div class="section-header compact">
+          <div>
+            <span class="eyebrow">Step 2</span>
+            <h3>Per-event asset library</h3>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="asset-card">
+            <label class="asset-label" for="logoFile">Logo upload</label>
+            <input id="logoFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+            <div class="asset-preview" id="logoPreviewWrap"><img id="logoPreview" alt="Logo preview" hidden /></div>
+            <button id="clearLogoBtn" class="btn ghost" type="button">Clear logo</button>
+          </div>
+          <div class="asset-card">
+            <label class="asset-label" for="heroFile">Hero / artwork upload</label>
+            <input id="heroFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+            <div class="asset-preview" id="heroPreviewWrap"><img id="heroPreview" alt="Hero preview" hidden /></div>
+            <button id="clearHeroBtn" class="btn ghost" type="button">Clear hero image</button>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="saveEventBtn" class="btn primary">Save event</button>
+          <button id="newEventBtn" class="btn secondary">Start new event</button>
+          <span id="adminMessage" class="inline-message muted">Not saved yet.</span>
+        </div>
+      </section>
+
+      <section class="glass page-card" id="savedEvents">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Step 3</span>
+            <h2>Saved events</h2>
+            <p class="muted">Open an event to edit its content and assets, or jump to the host dashboard to launch a live session.</p>
+          </div>
+        </div>
+        <div id="eventsList" class="saved-list"></div>
+      </section>
+
+      <section class="glass page-card" id="assetLibrary">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Quick view</span>
+            <h2>Asset library snapshot</h2>
+            <p class="muted">Every saved event keeps its own logo and hero artwork so you can reuse the same app for multiple branded experiences.</p>
+          </div>
+        </div>
+        <div id="assetLibraryGrid" class="asset-library-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./assets/app.js"></script>
+</body>
+</html>
