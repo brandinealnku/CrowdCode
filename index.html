@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CrowdCode</title>
+  <style>
+    :root{--bg:#0f1021;--bg2:#1f2450;--panel:rgba(255,255,255,.08);--border:rgba(255,255,255,.14);--text:#f6f7fb;--muted:#c6c9d9;--gold:#f7b718;--pink:#ff66c4}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(247,183,24,.16), transparent 25%),radial-gradient(circle at bottom right, rgba(255,102,196,.14), transparent 20%),linear-gradient(135deg,var(--bg),var(--bg2));min-height:100vh;display:grid;place-items:center;padding:20px}
+    .wrap{max-width:1100px;width:100%;display:grid;grid-template-columns:1.2fr .8fr;gap:22px}.panel{background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:26px;backdrop-filter:blur(14px)}
+    h1{font-size:clamp(2rem,5vw,4rem);margin:0 0 10px}p{color:var(--muted);line-height:1.55}.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+    a.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:14px 18px;border-radius:14px;font-weight:800}.primary{background:linear-gradient(135deg,var(--gold),#ffd970);color:#111}.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:var(--text)}
+    ul{margin:16px 0 0;padding-left:18px;color:var(--muted);line-height:1.7}.hero{padding:10px 4px}.badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--border);font-weight:700;margin-bottom:16px}.card{padding:18px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);margin-bottom:14px}.tiny{font-size:.9rem}
+    @media(max-width:900px){.wrap{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero panel">
+      <div class="badge">CrowdCode • Multi-event GitHub Pages build</div>
+      <h1>Turn a room full of phones into one shared experience.</h1>
+      <p>This starter includes a host control room, audience phone experience, Firebase-powered live sync, reusable event presets, session launching, customizable reveals, mosaic mode, audio reactive settings, and GitHub Pages friendly static files.</p>
+      <div class="cta">
+        <a class="btn primary" href="./host.html">Open Host Dashboard</a>
+        <a class="btn secondary" href="./audience.html">Open Audience Page</a>
+      </div>
+      <ul>
+        <li>Create reusable events for multiple open houses, classroom reveals, admitted-student events, and conferences.</li>
+        <li>Launch a new live session with a fresh join code any time.</li>
+        <li>Use Firebase Realtime Database as the live state layer while keeping the site static for GitHub Pages.</li>
+      </ul>
+    </section>
+    <aside class="panel">
+      <div class="card"><strong>Files included</strong><p class="tiny">index.html, host.html, audience.html, README.md</p></div>
+      <div class="card"><strong>Setup</strong><p class="tiny">Paste your Firebase config into both HTML files, upload to a GitHub repo, and enable GitHub Pages.</p></div>
+      <div class="card"><strong>Best first test</strong><p class="tiny">Create an event, launch a session, open audience.html on a phone, join, then start the countdown and reveal.</p></div>
+    </aside>
+  </div>
+</body>
+</html>
