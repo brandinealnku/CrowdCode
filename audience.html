@@ -2,1447 +2,158 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>CrowdCode Audience</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INF 286 Demo Day | Audience</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --gold:#f7b718;
-      --gold-soft:#ffe08a;
-      --pink:#ff66c4;
-      --cyan:#54d3ff;
-      --green:#37d67a;
-      --ink:#0d0f19;
-      --ink-2:#121629;
-      --ink-3:#1c2140;
-      --text:#f8f9ff;
-      --muted:rgba(255,255,255,.74);
-      --muted-2:rgba(255,255,255,.58);
-      --glass:rgba(255,255,255,.09);
-      --glass-2:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.14);
-      --danger:#ff6b6b;
-      --success:#39d98a;
-
-      --theme-primary:var(--gold);
-      --theme-secondary:var(--pink);
-      --theme-accent:var(--cyan);
-      --theme-glow:rgba(247,183,24,.24);
-      --theme-bg1:#0b0d17;
-      --theme-bg2:#151a31;
-      --theme-bg3:#1f2445;
-      --theme-orb-a:rgba(247,183,24,.18);
-      --theme-orb-b:rgba(255,102,196,.14);
-      --theme-orb-c:rgba(84,211,255,.14);
-    }
-
-    body.theme-nku{
-      --theme-primary:#f7b718;
-      --theme-secondary:#111111;
-      --theme-accent:#54d3ff;
-      --theme-glow:rgba(247,183,24,.26);
-      --theme-bg1:#0a0b12;
-      --theme-bg2:#191d2d;
-      --theme-bg3:#12192a;
-      --theme-orb-a:rgba(247,183,24,.20);
-      --theme-orb-b:rgba(255,255,255,.06);
-      --theme-orb-c:rgba(84,211,255,.12);
-    }
-
-    body.theme-recruiting{
-      --theme-primary:#54d3ff;
-      --theme-secondary:#7765ff;
-      --theme-accent:#ff66c4;
-      --theme-glow:rgba(84,211,255,.24);
-      --theme-bg1:#08111c;
-      --theme-bg2:#141a35;
-      --theme-bg3:#2a1841;
-      --theme-orb-a:rgba(84,211,255,.18);
-      --theme-orb-b:rgba(119,101,255,.16);
-      --theme-orb-c:rgba(255,102,196,.14);
-    }
-
-    body.theme-donor{
-      --theme-primary:#f7b718;
-      --theme-secondary:#ff66c4;
-      --theme-accent:#ffffff;
-      --theme-glow:rgba(247,183,24,.22);
-      --theme-bg1:#130d09;
-      --theme-bg2:#241722;
-      --theme-bg3:#372131;
-      --theme-orb-a:rgba(247,183,24,.14);
-      --theme-orb-b:rgba(255,102,196,.12);
-      --theme-orb-c:rgba(255,255,255,.08);
-    }
-
-    body.theme-classroom{
-      --theme-primary:#37d67a;
-      --theme-secondary:#54d3ff;
-      --theme-accent:#f7b718;
-      --theme-glow:rgba(55,214,122,.20);
-      --theme-bg1:#08130d;
-      --theme-bg2:#0e2230;
-      --theme-bg3:#25331c;
-      --theme-orb-a:rgba(55,214,122,.16);
-      --theme-orb-b:rgba(84,211,255,.12);
-      --theme-orb-c:rgba(247,183,24,.12);
-    }
-
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    html,body{
-      margin:0;
-      padding:0;
-      height:100%;
-      width:100%;
-    }
-
-    body{
-      font-family:'Inter',system-ui,sans-serif;
-      color:var(--text);
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 10% 12%, var(--theme-orb-a), transparent 22%),
-        radial-gradient(circle at 88% 20%, var(--theme-orb-c), transparent 22%),
-        radial-gradient(circle at 82% 82%, var(--theme-orb-b), transparent 20%),
-        linear-gradient(160deg, var(--theme-bg1), var(--theme-bg2), var(--theme-bg3));
-      position:relative;
-    }
-
-    body::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px);
-      background-size:24px 24px;
-      opacity:.4;
-      mask-image: radial-gradient(circle at center, rgba(0,0,0,1), rgba(0,0,0,.22));
-    }
-
-    .ambient{
-      position:absolute;
-      inset:0;
-      overflow:hidden;
-      pointer-events:none;
-      z-index:0;
-    }
-
-    .orb{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(20px);
-      opacity:.72;
-      animation:floaty 10s ease-in-out infinite;
-    }
-
-    .orb.a{
-      width:42vw;height:42vw;max-width:280px;max-height:280px;
-      top:-6%;left:-10%;
-      background:radial-gradient(circle, var(--theme-primary), transparent 65%);
-    }
-
-    .orb.b{
-      width:38vw;height:38vw;max-width:240px;max-height:240px;
-      right:-8%;top:18%;
-      background:radial-gradient(circle, var(--theme-secondary), transparent 65%);
-      animation-delay:1.8s;
-    }
-
-    .orb.c{
-      width:36vw;height:36vw;max-width:220px;max-height:220px;
-      right:6%;bottom:-6%;
-      background:radial-gradient(circle, var(--theme-accent), transparent 65%);
-      animation-delay:3.2s;
-    }
-
-    @keyframes floaty{
-      0%,100%{ transform:translateY(0) translateX(0); }
-      25%{ transform:translateY(-12px) translateX(8px); }
-      50%{ transform:translateY(8px) translateX(-10px); }
-      75%{ transform:translateY(-8px) translateX(6px); }
-    }
-
-    .app{
-      position:relative;
-      z-index:2;
-      min-height:100dvh;
-      display:flex;
-      flex-direction:column;
-      padding:max(16px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom));
-    }
-
-    .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.08);
-      backdrop-filter:blur(14px);
-      font-size:.77rem;
-      font-weight:800;
-      letter-spacing:.02em;
-      box-shadow:0 8px 24px rgba(0,0,0,.14);
-    }
-
-    .dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--danger);
-      box-shadow:0 0 0 6px rgba(255,107,107,.12);
-    }
-
-    .dot.live{
-      background:var(--success);
-      box-shadow:0 0 0 6px rgba(57,217,138,.14);
-      animation:pulse-dot 1.8s infinite;
-    }
-
-    @keyframes pulse-dot{
-      0%{ transform:scale(1); }
-      50%{ transform:scale(1.08); }
-      100%{ transform:scale(1); }
-    }
-
-    .screen,
-    .tile-screen{
-      min-height:calc(100dvh - 70px);
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      position:relative;
-    }
-
-    .glass,
-    .reveal-card,
-    .product-card{
-      width:min(92vw, 560px);
-      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:30px;
-      box-shadow:0 20px 60px rgba(0,0,0,.30);
-      backdrop-filter:blur(20px);
-      padding:24px 18px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .glass::before,
-    .reveal-card::before,
-    .product-card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:linear-gradient(180deg, rgba(255,255,255,.08), transparent 24%);
-      opacity:.8;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:800;
-      font-size:.84rem;
-      margin-bottom:16px;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-
-    h1,p{
-      margin:0;
-    }
-
-    .title{
-      font-size:clamp(1.65rem, 6vw, 2.5rem);
-      font-weight:900;
-      letter-spacing:-.05em;
-      line-height:.95;
-    }
-
-    .subtext{
-      color:var(--muted);
-      margin-top:12px;
-      line-height:1.5;
-      font-size:1rem;
-      max-width:36ch;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .feature-row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:16px;
-      text-align:left;
-    }
-
-    .feature{
-      padding:12px;
-      border-radius:18px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      font-size:.84rem;
-      color:rgba(255,255,255,.86);
-      line-height:1.35;
-    }
-
-    input{
-      width:100%;
-      border:1px solid rgba(255,255,255,.14);
-      border-radius:18px;
-      background:rgba(255,255,255,.08);
-      color:white;
-      padding:15px 16px;
-      font-size:1rem;
-      outline:none;
-      font-weight:600;
-      transition:border-color .18s ease, background .18s ease;
-    }
-
-    input:focus{
-      border-color:rgba(247,183,24,.6);
-      background:rgba(255,255,255,.10);
-    }
-
-    .nickname-wrap,
-    .actions,
-    .selfie-actions{
-      margin-top:16px;
-    }
-
-    .actions,
-    .selfie-actions{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    button,
-    a.cta{
-      width:100%;
-      border:0;
-      border-radius:18px;
-      padding:15px 18px;
-      font-weight:900;
-      font-size:1rem;
-      cursor:pointer;
-      text-decoration:none;
-      transition:transform .18s ease, filter .18s ease, opacity .18s ease;
-    }
-
-    button:hover,
-    a.cta:hover{
-      transform:translateY(-1px);
-      filter:brightness(1.04);
-    }
-
-    .primary{
-      background:linear-gradient(135deg, var(--theme-primary), var(--theme-accent));
-      color:#111;
-      box-shadow:0 16px 40px var(--theme-glow);
-    }
-
-    .secondary{
-      background:rgba(255,255,255,.09);
-      color:white;
-      border:1px solid rgba(255,255,255,.12);
-    }
-
-    .tiny{
-      margin-top:14px;
-      color:rgba(255,255,255,.66);
-      font-size:.83rem;
-      line-height:1.45;
-    }
-
-    .audio-note{
-      margin-top:10px;
-      color:rgba(255,255,255,.80);
-      font-size:.82rem;
-      line-height:1.42;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .tile-index{
-      font-size:.82rem;
-      font-weight:900;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.72);
-      margin-bottom:14px;
-    }
-
-    .tile-main{
-      font-size:clamp(2.8rem, 18vw, 6.8rem);
-      line-height:.88;
-      font-weight:900;
-      letter-spacing:-.06em;
-      text-shadow:0 14px 30px rgba(0,0,0,.28);
-      max-width:95vw;
-      word-break:break-word;
-      transition:transform .35s ease, filter .35s ease;
-    }
-
-    .tile-caption{
-      margin-top:12px;
-      color:rgba(255,255,255,.84);
-      font-size:1rem;
-      line-height:1.42;
-      max-width:34ch;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .tile-glow{
-      margin-top:18px;
-      width:120px;
-      height:6px;
-      border-radius:999px;
-      background:linear-gradient(90deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent));
-      box-shadow:0 0 26px var(--theme-glow);
-      opacity:.9;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .mosaic-shell{
-      width:min(92vw,560px);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-    }
-
-    .mosaic-slice{
-      width:min(92vw,560px);
-      max-width:560px;
-      aspect-ratio:9/16;
-      border-radius:30px;
-      border:1px solid rgba(255,255,255,.15);
-      box-shadow:0 20px 60px rgba(0,0,0,.30);
-      background-repeat:no-repeat;
-      background-color:#0f1021;
-      overflow:hidden;
-      position:relative;
-      transform:translateY(0);
-      transition:transform .25s ease, filter .25s ease;
-    }
-
-    .mosaic-slice::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 22%);
-      pointer-events:none;
-    }
-
-    .mosaic-overlay{
-      position:absolute;
-      inset:auto 0 0 0;
-      padding:18px 16px 16px;
-      background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.52));
-      font-weight:800;
-      font-size:.92rem;
-      letter-spacing:.02em;
-    }
-
-    .mosaic-meta{
-      color:rgba(255,255,255,.72);
-      font-size:.85rem;
-      line-height:1.4;
-      max-width:32ch;
-    }
-
-    .countdown-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-
-    .countdown-ring{
-      width:min(72vw, 260px);
-      aspect-ratio:1;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,.08), rgba(255,255,255,.02) 58%, transparent 60%),
-        conic-gradient(from 180deg, var(--theme-primary), var(--theme-secondary), var(--theme-accent), var(--theme-primary));
-      box-shadow:0 20px 60px rgba(0,0,0,.30), 0 0 32px var(--theme-glow);
-      padding:10px;
-    }
-
-    .countdown-inner{
-      width:100%;
-      height:100%;
-      border-radius:50%;
-      background:radial-gradient(circle at top, rgba(255,255,255,.08), rgba(255,255,255,.02)), linear-gradient(180deg, rgba(7,9,18,.86), rgba(13,16,29,.94));
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .countdown{
-      font-size:clamp(4.2rem, 28vw, 8.4rem);
-      line-height:.82;
-      font-weight:900;
-      letter-spacing:-.07em;
-      text-shadow:0 14px 34px rgba(0,0,0,.28);
-      animation:pulse-count 1s ease-in-out infinite;
-    }
-
-    @keyframes pulse-count{
-      0%,100%{ transform:scale(1); }
-      50%{ transform:scale(1.05); }
-    }
-
-    .reveal-headline{
-      font-size:clamp(2.2rem, 11vw, 4.4rem);
-      line-height:.92;
-      font-weight:900;
-      letter-spacing:-.05em;
-      text-shadow:0 14px 30px rgba(0,0,0,.26);
-      animation:revealRise .9s ease both;
-    }
-
-    .reveal-subhead{
-      font-size:clamp(1rem, 4.7vw, 1.24rem);
-      color:rgba(255,255,255,.88);
-      line-height:1.45;
-      margin-top:12px;
-    }
-
-    @keyframes revealRise{
-      0%{ opacity:0; transform:translateY(28px) scale(.96); filter:blur(8px); }
-      100%{ opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
-    }
-
-    .selfie-wrap video,
-    .selfie-wrap canvas{
-      width:min(88vw,360px);
-      aspect-ratio:9/16;
-      object-fit:cover;
-      border-radius:30px;
-      background:rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 20px 60px rgba(0,0,0,.34);
-    }
-
-    .selfie-header{
-      margin-bottom:14px;
-    }
-
-    .selfie-title{
-      font-size:clamp(1.6rem, 7vw, 2.4rem);
-      font-weight:900;
-      letter-spacing:-.04em;
-      line-height:.95;
-    }
-
-    .selfie-sub{
-      color:var(--muted);
-      font-size:.98rem;
-      line-height:1.45;
-      margin-top:10px;
-      max-width:30ch;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .flash-layer{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:0;
-      mix-blend-mode:screen;
-      z-index:30;
-      background:#fff;
-    }
-
-    .flash-layer.gold{ background:linear-gradient(180deg,#fff7d0,#f7b718); }
-    .flash-layer.pink{ background:linear-gradient(180deg,#fff2fb,#ff66c4); }
-    .flash-layer.cycle{ background:linear-gradient(135deg,#ffffff,#f7b718,#ff66c4,#ffffff); }
-    .flash-layer.live{ animation:flashBurst var(--flash-duration,180ms) linear; }
-
-    @keyframes flashBurst{
-      0%{ opacity:0 }
-      12%{ opacity:var(--flash-opacity,.85) }
-      100%{ opacity:0 }
-    }
-
-    .animate-overlay{
-      margin-top:18px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(12px);
-      font-size:.8rem;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:#fff;
-      opacity:0;
-      transform:translateY(8px);
-      transition:opacity .24s ease, transform .24s ease;
-    }
-
-    .animate-overlay.live{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    .phase-animate .tile-main{
-      transform:scale(var(--reactive-scale,1));
-      filter:brightness(var(--reactive-brightness,1)) drop-shadow(0 0 var(--reactive-glow,0px) rgba(255,255,255,.28));
-    }
-
-    .audio-badge{
-      margin-top:10px;
-      font-size:.78rem;
-      color:rgba(255,255,255,.74);
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      font-weight:800;
-    }
-
-    .bottom-meta{
-      position:absolute;
-      left:16px;
-      right:16px;
-      bottom:max(12px, env(safe-area-inset-bottom));
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      font-size:.78rem;
-      color:rgba(255,255,255,.68);
-      z-index:3;
-    }
-
-    @media (max-width:520px){
-      .feature-row{
-        grid-template-columns:1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/styles.css" />
 </head>
-<body class="theme-nku">
-  <div class="ambient">
-    <div class="orb a"></div>
-    <div class="orb b"></div>
-    <div class="orb c"></div>
-  </div>
+<body>
+<div class="center-wrap">
+  <div class="panel mobile-shell">
+    <section class="hero">
+      <div class="eyebrow">Live Audience Experience</div>
+      <h2 id="heroTitle">Join the INF 286 launch.</h2>
+      <p id="heroSubtitle">Pick a nickname, join the room, and get ready for demo day.</p>
+    </section>
 
-  <div id="flashLayer" class="flash-layer"></div>
-
-  <div class="app">
-    <div class="topbar">
-      <div class="pill">
-        <span id="statusDot" class="dot"></span>
-        <span id="statusText">Connecting…</span>
-      </div>
-      <div class="pill">
-        <span id="joinSessionLabel">CrowdCode</span>
-      </div>
+    <div class="field"><label for="nickname">Nickname</label><input id="nickname" maxlength="24" placeholder="Your name or nickname"></div>
+    <div class="row" style="margin-bottom:14px;">
+      <button class="btn btn-primary" id="joinBtn">Join session</button>
+      <div class="pill">Session <span id="sessionCode">—</span></div>
     </div>
 
-    <section id="joinView" class="screen">
-      <div class="glass">
-        <div class="eyebrow">
-          <span class="dot live"></span>
-          <span>Live Audience Experience</span>
-        </div>
+    <div id="phaseCard" class="audience-card">
+      <h3 id="phaseHeading">Waiting for host…</h3>
+      <div id="mainDisplay" class="countdown">286</div>
+      <p id="subDisplay" class="muted" style="text-align:center;">Once you join, your phone becomes part of the room.</p>
+    </div>
 
-        <h1 class="title">Join the reveal</h1>
-        <p class="subtext">
-          Your phone becomes part of a premium shared visual moment. In mosaic mode,
-          each screen displays one slice of a larger live composition.
-        </p>
-
-        <div class="feature-row">
-          <div class="feature"><strong>Immersive</strong><br>Each device becomes part of the room-wide experience.</div>
-          <div class="feature"><strong>Synchronized</strong><br>Countdown, sound, and reveal can all align live.</div>
-        </div>
-
-        <div class="nickname-wrap">
-          <input id="nicknameInput" maxlength="24" placeholder="Your name or group name" />
-        </div>
-
-        <div class="actions">
-          <button id="joinBtn" class="primary">Join session</button>
-          <button id="readyBtn" class="secondary hidden">I’m ready</button>
-          <button id="enableSoundBtn" class="secondary">Enable synced sound</button>
-        </div>
-
-        <div id="audioNote" class="audio-note">
-          Tap Enable synced sound once so this phone can play the host’s audio during the experience.
-        </div>
-
-        <div class="tiny">
-          Best results: portrait orientation, brightness all the way up, volume on.
-        </div>
+    <div class="audience-card" style="margin-top:14px;">
+      <h3>Quick reactions</h3>
+      <div class="row">
+        <button class="btn btn-secondary reactBtn" data-emoji="🔥">🔥</button>
+        <button class="btn btn-secondary reactBtn" data-emoji="👏">👏</button>
+        <button class="btn btn-secondary reactBtn" data-emoji="🚀">🚀</button>
+        <button class="btn btn-secondary reactBtn" data-emoji="💻">💻</button>
       </div>
-    </section>
+      <div class="small" style="margin-top:10px;">These are lightweight live reactions for your class energy.</div>
+    </div>
 
-    <section id="tileView" class="tile-screen hidden">
-      <div class="tile-index" id="tileIndexLabel">Slot 1</div>
-
-      <div id="mosaicShell" class="mosaic-shell hidden">
-        <div id="mosaicSlice" class="mosaic-slice">
-          <div class="mosaic-overlay" id="mosaicCellLabel">Cell 1</div>
-        </div>
-        <div class="mosaic-meta" id="mosaicMeta">
-          You are displaying one live segment of the larger visual composition.
-        </div>
-      </div>
-
-      <div id="wordTileWrap">
-        <div class="tile-main" id="tileMain">JOIN</div>
-        <div class="tile-caption" id="tileCaption">Waiting for the host…</div>
-        <div class="tile-glow"></div>
-      </div>
-
-      <div id="animateOverlay" class="animate-overlay hidden">Pulse</div>
-      <div class="audio-badge" id="audioBadge"></div>
-    </section>
-
-    <section id="countdownView" class="tile-screen hidden">
-      <div class="countdown-wrap">
-        <div class="tile-index">Get ready</div>
-        <div class="countdown-ring">
-          <div class="countdown-inner">
-            <div class="countdown" id="countdownNumber">3</div>
-          </div>
-        </div>
-        <div class="tile-caption" style="margin-top:18px;">
-          Hold your phone up as the countdown reaches zero.
-        </div>
-      </div>
-    </section>
-
-    <section id="revealView" class="tile-screen hidden">
-      <div class="reveal-card">
-        <div class="eyebrow">Final reveal</div>
-        <div class="reveal-headline" id="revealHeadline">Final Reveal</div>
-        <div class="reveal-subhead" id="revealSubhead">Thanks for joining the CrowdCode moment.</div>
-        <div class="actions" style="margin-top:18px;">
-          <a id="revealCta" class="cta primary" href="#" target="_blank" rel="noopener">Open link</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="selfieView" class="screen hidden">
-      <div class="product-card selfie-wrap">
-        <div class="selfie-header">
-          <div class="eyebrow">Celebrate & share</div>
-          <div class="selfie-title">Selfie moment</div>
-          <div class="selfie-sub">
-            Capture the ending and save a branded image from the live experience.
-          </div>
-        </div>
-
-        <video id="camera" playsinline autoplay muted></video>
-        <canvas id="snapshot" class="hidden"></canvas>
-
-        <div class="selfie-actions">
-          <button id="captureBtn" class="primary">Capture selfie</button>
-          <button id="retakeBtn" class="secondary hidden">Retake</button>
-          <a id="downloadBtn" class="cta secondary hidden" download="crowdcode-selfie.png">Save image</a>
-        </div>
-
-        <div class="tiny">
-          Great for event photos, social posts, or post-demo sharing.
-        </div>
-      </div>
-    </section>
-
-    <div class="bottom-meta">
-      <div id="participantName">Audience device</div>
-      <div id="slotMeta">Slot —</div>
+    <div id="votePanel" class="audience-card" style="margin-top:14px; display:none;">
+      <h3>Vote for your favorite project</h3>
+      <div class="small">One vote per phone for the audience favorite award.</div>
+      <div id="voteGrid" class="vote-grid"></div>
     </div>
   </div>
+</div>
 
-  <audio id="sharedAudio" playsinline preload="auto"></audio>
+<script type="module">
+import {
+  db, ref, set, update, onValue, getSessionId, sessionRef, participantsRef, projectsRef,
+  addReaction, castVote, defaultSession, escapeHtml
+} from './assets/app.js';
 
-  <script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-    import {
-      getDatabase,
-      ref,
-      get,
-      set,
-      update,
-      onValue,
-      onDisconnect,
-      serverTimestamp
-    } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
+const sessionId = getSessionId();
+const participantId = localStorage.getItem(`demoDay-${sessionId}-participant`) || crypto.randomUUID().slice(0,10);
+localStorage.setItem(`demoDay-${sessionId}-participant`, participantId);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDG34fpXimkHbqiLD0YFbM1FuSUlLW7FSo",
-      authDomain: "crowdcode-713e4.firebaseapp.com",
-      databaseURL: "https://crowdcode-713e4-default-rtdb.firebaseio.com",
-      projectId: "crowdcode-713e4",
-      storageBucket: "crowdcode-713e4.firebasestorage.app",
-      messagingSenderId: "415062434213",
-      appId: "1:415062434213:web:0ac4da57c4ffe6a5e7884c",
-      measurementId: "G-E1CNDCQWC0"
-    };
+const els = {
+  nickname: document.getElementById('nickname'), joinBtn: document.getElementById('joinBtn'), sessionCode: document.getElementById('sessionCode'),
+  phaseHeading: document.getElementById('phaseHeading'), mainDisplay: document.getElementById('mainDisplay'), subDisplay: document.getElementById('subDisplay'),
+  votePanel: document.getElementById('votePanel'), voteGrid: document.getElementById('voteGrid'), heroTitle: document.getElementById('heroTitle'), heroSubtitle: document.getElementById('heroSubtitle')
+};
+els.sessionCode.textContent = sessionId;
+let state = { session: defaultSession(), participant:{}, projects:{}, joined:false };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+async function join(){
+  const nickname = els.nickname.value.trim() || 'Web Dev Student';
+  await set(ref(db, `demoDay/sessions/${sessionId}/participants/${participantId}`), {
+    id: participantId, nickname, joinedAt: Date.now(), updatedAt: Date.now()
+  });
+  state.joined = true;
+  els.joinBtn.textContent = 'Joined';
+  els.joinBtn.disabled = true;
+}
 
-    const sessionId = new URLSearchParams(window.location.search).get('session');
-    if (!sessionId) {
-      document.body.innerHTML = '<div style="padding:24px;color:white;font-family:Inter,sans-serif;">Missing session code.</div>';
-      throw new Error('Missing session ID');
-    }
-
-    const els = {
-      joinView: document.getElementById('joinView'),
-      tileView: document.getElementById('tileView'),
-      countdownView: document.getElementById('countdownView'),
-      revealView: document.getElementById('revealView'),
-      selfieView: document.getElementById('selfieView'),
-
-      nicknameInput: document.getElementById('nicknameInput'),
-      joinBtn: document.getElementById('joinBtn'),
-      readyBtn: document.getElementById('readyBtn'),
-      enableSoundBtn: document.getElementById('enableSoundBtn'),
-      audioNote: document.getElementById('audioNote'),
-      sharedAudio: document.getElementById('sharedAudio'),
-
-      joinSessionLabel: document.getElementById('joinSessionLabel'),
-      statusDot: document.getElementById('statusDot'),
-      statusText: document.getElementById('statusText'),
-
-      tileIndexLabel: document.getElementById('tileIndexLabel'),
-      tileMain: document.getElementById('tileMain'),
-      tileCaption: document.getElementById('tileCaption'),
-      wordTileWrap: document.getElementById('wordTileWrap'),
-
-      mosaicShell: document.getElementById('mosaicShell'),
-      mosaicSlice: document.getElementById('mosaicSlice'),
-      mosaicCellLabel: document.getElementById('mosaicCellLabel'),
-      mosaicMeta: document.getElementById('mosaicMeta'),
-
-      animateOverlay: document.getElementById('animateOverlay'),
-      audioBadge: document.getElementById('audioBadge'),
-      flashLayer: document.getElementById('flashLayer'),
-
-      countdownNumber: document.getElementById('countdownNumber'),
-      revealHeadline: document.getElementById('revealHeadline'),
-      revealSubhead: document.getElementById('revealSubhead'),
-      revealCta: document.getElementById('revealCta'),
-
-      camera: document.getElementById('camera'),
-      snapshot: document.getElementById('snapshot'),
-      captureBtn: document.getElementById('captureBtn'),
-      retakeBtn: document.getElementById('retakeBtn'),
-      downloadBtn: document.getElementById('downloadBtn'),
-
-      participantName: document.getElementById('participantName'),
-      slotMeta: document.getElementById('slotMeta')
-    };
-
-    const sessionRef = ref(db, `crowdcode/sessions/${sessionId}`);
-    const participantsRef = ref(db, `crowdcode/sessions/${sessionId}/participants`);
-
-    let participantId = localStorage.getItem(`crowdcode:${sessionId}:participantId`) || crypto.randomUUID().slice(0, 12);
-    localStorage.setItem(`crowdcode:${sessionId}:participantId`, participantId);
-    const participantRef = ref(db, `crowdcode/sessions/${sessionId}/participants/${participantId}`);
-
-    const state = {
-      session: null,
-      participant: null,
-      countdownTimer: null,
-      stream: null,
-      lastFlashAt: 0,
-      lastVibrateAt: 0,
-      audioUnlocked: false,
-      loadedAudioDataUrl: '',
-      audioSyncTimer: null
-    };
-
-    function applyThemeClass(theme) {
-      document.body.classList.remove('theme-nku', 'theme-recruiting', 'theme-donor', 'theme-classroom');
-      const safe = ['nku', 'recruiting', 'donor', 'classroom'].includes(theme) ? theme : 'nku';
-      document.body.classList.add(`theme-${safe}`);
-    }
-
-    function setAudioNote(message) {
-      els.audioNote.textContent = message;
-    }
-
-    async function unlockAudio() {
-      state.audioUnlocked = true;
-      els.sharedAudio.muted = false;
-
+function renderVotePanel(){
+  const projects = Object.values(state.projects || {}).sort((a,b)=> (a.createdAt||0)-(b.createdAt||0));
+  const open = !!state.session.allowVoting;
+  els.votePanel.style.display = open ? 'block' : 'none';
+  if(!open) return;
+  els.voteGrid.innerHTML = projects.map(p => `
+    <div class="vote-card">
+      <div class="meta"><span class="tag">${escapeHtml(p.team)}</span><span class="tag">${escapeHtml(p.category)}</span></div>
+      <strong>${escapeHtml(p.title)}</strong>
+      <div class="small" style="margin-top:6px;">${escapeHtml(p.pitch)}</div>
+      <button class="btn btn-primary voteBtn" data-project="${escapeHtml(p.id)}">Vote for this project</button>
+    </div>
+  `).join('');
+  document.querySelectorAll('.voteBtn').forEach(btn => {
+    btn.onclick = async () => {
       try {
-        await els.sharedAudio.play();
-        els.sharedAudio.pause();
-        els.sharedAudio.currentTime = 0;
-      } catch (e) {}
-
-      setAudioNote('Synced sound enabled. This phone can now participate in shared audio playback.');
-      els.enableSoundBtn.textContent = 'Sound enabled';
-    }
-
-    function stopSyncedAudio() {
-      if (state.audioSyncTimer) {
-        clearInterval(state.audioSyncTimer);
-        state.audioSyncTimer = null;
+        await castVote(sessionId, participantId, btn.dataset.project);
+        btn.textContent = 'Vote submitted';
+        document.querySelectorAll('.voteBtn').forEach(b => b.disabled = true);
+      } catch(err){
+        btn.textContent = err.message || 'Vote not accepted';
       }
-      try { els.sharedAudio.pause(); } catch (e) {}
-      els.audioBadge.textContent = '';
-    }
-
-    async function syncSharedAudio() {
-      const audioCfg = state.session?.audioBroadcast;
-      if (!audioCfg?.enabled || audioCfg.mode !== 'sync' || !audioCfg.dataUrl) {
-        stopSyncedAudio();
-        return;
-      }
-
-      if (state.loadedAudioDataUrl !== audioCfg.dataUrl) {
-        state.loadedAudioDataUrl = audioCfg.dataUrl;
-        els.sharedAudio.src = audioCfg.dataUrl;
-        els.sharedAudio.load();
-      }
-
-      if (!state.audioUnlocked) {
-        setAudioNote('The host is ready to broadcast audio. Tap Enable synced sound to allow playback.');
-        return;
-      }
-
-      const desiredMs = Math.max(
-        0,
-        Number(audioCfg.hostPositionMs || (Date.now() - (audioCfg.startedAt || Date.now())))
-      );
-      const desiredSec = desiredMs / 1000;
-      const drift = Math.abs((els.sharedAudio.currentTime || 0) - desiredSec);
-
-      if (drift > 0.35 && Number.isFinite(desiredSec)) {
-        try { els.sharedAudio.currentTime = desiredSec; } catch (e) {}
-      }
-
-      if (audioCfg.playing) {
-        try { await els.sharedAudio.play(); } catch (e) {
-          setAudioNote('Tap Enable synced sound again if this phone stays silent.');
-        }
-      } else {
-        try { els.sharedAudio.pause(); } catch (e) {}
-      }
-
-      els.audioBadge.textContent = audioCfg.trackName
-        ? `Live audio • ${audioCfg.trackName}`
-        : 'Live audio';
-
-      setAudioNote(
-        `Now playing: ${audioCfg.trackName || 'Shared track'}${
-          audioCfg.durationMs ? ` • ${Math.max(0, Math.ceil((audioCfg.durationMs - desiredMs)/1000))}s left` : ''
-        }`
-      );
-
-      if (!state.audioSyncTimer) {
-        state.audioSyncTimer = setInterval(() => {
-          const cfg = state.session?.audioBroadcast;
-          if (!cfg?.enabled || cfg.mode !== 'sync' || !cfg.playing) return;
-          const shouldBe = Math.max(0, Number(cfg.hostPositionMs || 0)) / 1000;
-          const driftInner = Math.abs((els.sharedAudio.currentTime || 0) - shouldBe);
-          if (driftInner > 0.45) {
-            try { els.sharedAudio.currentTime = shouldBe; } catch (e) {}
-          }
-        }, 500);
-      }
-    }
-
-    function show(view) {
-      [els.joinView, els.tileView, els.countdownView, els.revealView, els.selfieView]
-        .forEach(v => v.classList.add('hidden'));
-      view.classList.remove('hidden');
-    }
-
-    function computeAssignment(index, totalCount, session) {
-      const tiles = session.tiles || [];
-      const mode = session.assignmentMode || 'repeat';
-
-      if (mode === 'mosaic') {
-        const totalCells = Math.max(1, (session.mosaic?.cols || 4) * (session.mosaic?.rows || 6));
-        const sliceIndex = index % totalCells;
-        return {
-          tileIndex: sliceIndex,
-          tileText: `CELL ${sliceIndex + 1}`,
-          groupIndex: sliceIndex,
-          mosaicIndex: sliceIndex
-        };
-      }
-
-      if (!tiles.length) {
-        return { tileIndex: index, tileText: `#${index + 1}`, groupIndex: index };
-      }
-
-      if (mode === 'unique') {
-        return {
-          tileIndex: index,
-          tileText: tiles[index] ?? `#${index + 1}`,
-          groupIndex: Math.min(index, tiles.length - 1)
-        };
-      }
-
-      if (mode === 'sections') {
-        const sectionSize = Math.max(1, Math.ceil(totalCount / tiles.length));
-        const sectionIndex = Math.min(Math.floor(index / sectionSize), tiles.length - 1);
-        return {
-          tileIndex: sectionIndex,
-          tileText: tiles[sectionIndex],
-          groupIndex: sectionIndex
-        };
-      }
-
-      const repeatedIndex = index % tiles.length;
-      return {
-        tileIndex: repeatedIndex,
-        tileText: tiles[repeatedIndex],
-        groupIndex: repeatedIndex
-      };
-    }
-
-    async function joinSession() {
-      const sessionSnap = await get(sessionRef);
-      if (!sessionSnap.exists()) {
-        alert('This session was not found.');
-        return;
-      }
-
-      const session = sessionSnap.val();
-      const participantsSnap = await get(participantsRef);
-      const participants = participantsSnap.val() || {};
-      const nickname = els.nicknameInput.value.trim() || `Phone ${Math.floor(Math.random() * 90) + 10}`;
-
-      const participantEntries = Object.entries(participants)
-        .sort((a, b) => (a[1]?.joinedAt || 0) - (b[1]?.joinedAt || 0));
-
-      const existing = participants[participantId];
-      const existingIndex = participantEntries.findIndex(([id]) => id === participantId);
-      const joinIndex = existingIndex >= 0 ? existingIndex : participantEntries.length;
-
-      const assigned = computeAssignment(
-        joinIndex,
-        Math.max(1, participantEntries.length + (existing ? 0 : 1)),
-        session
-      );
-
-      await set(participantRef, {
-        nickname,
-        tileIndex: assigned.tileIndex,
-        tileText: assigned.tileText,
-        groupIndex: assigned.groupIndex,
-        mosaicIndex: assigned.mosaicIndex ?? null,
-        slotNumber: joinIndex + 1,
-        joinedAt: existing?.joinedAt || Date.now(),
-        ready: true,
-        online: true,
-        updatedAt: serverTimestamp(),
-        userAgent: navigator.userAgent
-      });
-
-      onDisconnect(participantRef).update({
-        online: false,
-        ready: false,
-        updatedAt: serverTimestamp()
-      });
-
-      els.readyBtn.classList.remove('hidden');
-      els.participantName.textContent = nickname;
-    }
-
-    async function setReady() {
-      await update(participantRef, {
-        ready: true,
-        online: true,
-        updatedAt: serverTimestamp()
-      });
-    }
-
-    function applyAudioReactiveLevel(level = 0) {
-      const clamped = Math.max(0, Math.min(1, Number(level) || 0));
-      els.tileView.style.setProperty('--reactive-scale', (1 + clamped * 0.16).toFixed(3));
-      els.tileView.style.setProperty('--reactive-brightness', (1 + clamped * 0.65).toFixed(3));
-      els.tileView.style.setProperty('--reactive-glow', `${Math.round(clamped * 42)}px`);
-    }
-
-    function clearAudioReactiveLevel() {
-      els.tileView.style.removeProperty('--reactive-scale');
-      els.tileView.style.removeProperty('--reactive-brightness');
-      els.tileView.style.removeProperty('--reactive-glow');
-      els.tileView.classList.remove('phase-animate');
-    }
-
-    function getFlashProfile(level = 0) {
-      const config = state.session?.flashConfig || {};
-      const mode = config.mode || 'soft';
-      const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (mode === 'off' || reducedMotion) return null;
-
-      const profiles = {
-        soft: { threshold: 0.58, opacity: 0.45, duration: 170, cooldown: 260 },
-        medium: { threshold: 0.48, opacity: 0.72, duration: 150, cooldown: 180 },
-        strobe: { threshold: 0.36, opacity: 0.92, duration: 110, cooldown: 90 }
-      };
-
-      const profile = { ...(profiles[mode] || profiles.soft) };
-      if (level < profile.threshold) return null;
-
-      profile.color = config.color || 'white';
-      profile.haptics = config.haptics || 'off';
-      profile.opacity = Math.min(0.95, profile.opacity + Math.max(0, level - profile.threshold) * 0.45);
-      profile.duration = Math.max(80, profile.duration - Math.round(level * 25));
-      return profile;
-    }
-
-    function triggerFlash(profile) {
-      if (!profile) return;
-
-      const now = Date.now();
-      if (now - state.lastFlashAt < profile.cooldown) return;
-      state.lastFlashAt = now;
-
-      els.flashLayer.className = 'flash-layer';
-      if (profile.color && profile.color !== 'white') els.flashLayer.classList.add(profile.color);
-      els.flashLayer.style.setProperty('--flash-opacity', String(profile.opacity));
-      els.flashLayer.style.setProperty('--flash-duration', `${profile.duration}ms`);
-
-      void els.flashLayer.offsetWidth;
-      els.flashLayer.classList.add('live');
-
-      if (profile.haptics === 'vibrate' && navigator.vibrate && now - state.lastVibrateAt > 220) {
-        state.lastVibrateAt = now;
-        navigator.vibrate(18);
-      }
-    }
-
-    function clearFlashLayer() {
-      els.flashLayer.className = 'flash-layer';
-      els.flashLayer.style.removeProperty('--flash-opacity');
-      els.flashLayer.style.removeProperty('--flash-duration');
-    }
-
-    function setAnimationState(isLive, style = 'pulse', remaining = null) {
-      els.tileView.classList.remove('phase-animate');
-      els.animateOverlay.classList.add('hidden');
-      els.animateOverlay.classList.remove('live');
-
-      if (!isLive) {
-        clearFlashLayer();
-        return;
-      }
-
-      els.tileView.classList.add('phase-animate');
-      els.animateOverlay.classList.remove('hidden');
-      requestAnimationFrame(() => els.animateOverlay.classList.add('live'));
-
-      const label = String(style || 'pulse').toUpperCase();
-      els.animateOverlay.textContent = remaining !== null ? `${label} • ${remaining}` : label;
-    }
-
-    function runAnimatePhase() {
-      if (state.countdownTimer) clearInterval(state.countdownTimer);
-
-      const style = state.session?.animationStyle || 'pulse';
-
-      if (style === 'audio') {
-        const tick = () => {
-          const level = state.session?.audioReactive?.level || 0;
-          const label = state.session?.audioReactive?.trackName
-            ? `AUDIO • ${Math.round(level * 100)}%`
-            : 'AUDIO';
-
-          setAnimationState(true, 'audio', null);
-          els.animateOverlay.textContent = label;
-          applyAudioReactiveLevel(level);
-          triggerFlash(getFlashProfile(level));
-        };
-
-        tick();
-        state.countdownTimer = setInterval(tick, 120);
-        return;
-      }
-
-      const target = state.session?.animationTargetAt;
-      if (!target) {
-        setAnimationState(true, style, null);
-        return;
-      }
-
-      const tick = () => {
-        const remaining = Math.max(0, Math.ceil((target - Date.now()) / 1000));
-        setAnimationState(true, style, remaining);
-        if (remaining <= 0) {
-          clearInterval(state.countdownTimer);
-          setAnimationState(false);
-        }
-      };
-
-      tick();
-      state.countdownTimer = setInterval(tick, 160);
-    }
-
-    function updateTileView() {
-      const p = state.participant || {};
-      const session = state.session || {};
-      const isMosaic = session.assignmentMode === 'mosaic' && session.mosaic?.artwork;
-
-      els.joinSessionLabel.textContent = session.sessionName || `Session ${sessionId}`;
-      els.tileIndexLabel.textContent = `Slot ${p.slotNumber || (p.tileIndex ?? 0) + 1} • ${(session.assignmentMode || 'repeat').toUpperCase()}`;
-      els.slotMeta.textContent = `Slot ${p.slotNumber || '—'}`;
-
-      if (isMosaic) {
-        const cols = Math.max(2, session.mosaic?.cols || 4);
-        const rows = Math.max(2, session.mosaic?.rows || 6);
-        const sliceIndex = p.mosaicIndex ?? p.tileIndex ?? 0;
-        const col = sliceIndex % cols;
-        const row = Math.floor(sliceIndex / cols);
-        const bgX = cols > 1 ? (col / (cols - 1)) * 100 : 50;
-        const bgY = rows > 1 ? (row / (rows - 1)) * 100 : 50;
-
-        els.wordTileWrap.classList.add('hidden');
-        els.mosaicShell.classList.remove('hidden');
-
-        els.mosaicSlice.style.backgroundImage = `url(${session.mosaic.artwork})`;
-        els.mosaicSlice.style.backgroundSize =
-          session.mosaic?.imageFit === 'contain'
-            ? 'contain'
-            : `${cols * 100}% ${rows * 100}%`;
-        els.mosaicSlice.style.backgroundPosition = `${bgX}% ${bgY}%`;
-        els.mosaicSlice.style.backgroundRepeat = 'no-repeat';
-
-        els.mosaicCellLabel.textContent = `${session.mosaic.headline || 'Artwork'} • Cell ${sliceIndex + 1}`;
-        els.mosaicMeta.textContent = session.mosaic.subhead || 'You are displaying one live segment of the larger visual composition.';
-      } else {
-        els.mosaicShell.classList.add('hidden');
-        els.wordTileWrap.classList.remove('hidden');
-        els.tileMain.textContent = p.tileText || 'JOIN';
-        els.tileCaption.textContent = session.sessionName || 'Waiting for the host…';
-      }
-
-      els.revealHeadline.textContent = session.finalHeadline || 'Final Reveal';
-      els.revealSubhead.textContent = session.finalSubhead || 'Thanks for joining.';
-      els.revealCta.href = session.ctaUrl || '#';
-      els.revealCta.textContent = session.ctaUrl ? 'Open link' : 'Experience complete';
-
-      if (!session.ctaUrl) {
-        els.revealCta.removeAttribute('target');
-      } else {
-        els.revealCta.setAttribute('target', '_blank');
-      }
-    }
-
-    function runCountdown() {
-      if (state.countdownTimer) clearInterval(state.countdownTimer);
-      const targetAt = state.session?.countdownTargetAt;
-      if (!targetAt) return;
-
-      const tick = () => {
-        const value = Math.max(0, Math.ceil((targetAt - Date.now()) / 1000));
-        els.countdownNumber.textContent = value;
-        if (value <= 0) clearInterval(state.countdownTimer);
-      };
-
-      tick();
-      state.countdownTimer = setInterval(tick, 120);
-    }
-
-    async function ensureSelfieCamera() {
-      if (state.stream) return;
-      try {
-        state.stream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: 'user',
-            width: { ideal: 1080 },
-            height: { ideal: 1920 }
-          },
-          audio: false
-        });
-        els.camera.srcObject = state.stream;
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function applyPhase() {
-      const phase = state.session?.phase || 'lobby';
-      updateTileView();
-
-      if (state.countdownTimer && !['countdown', 'animate'].includes(phase)) {
-        clearInterval(state.countdownTimer);
-      }
-
-      if (phase === 'lobby') {
-        stopSyncedAudio();
-        clearAudioReactiveLevel();
-        setAnimationState(false);
-        show(state.participant ? els.tileView : els.joinView);
-      }
-
-      if (phase === 'countdown') {
-        stopSyncedAudio();
-        clearAudioReactiveLevel();
-        setAnimationState(false);
-        show(els.countdownView);
-        runCountdown();
-      }
-
-      if (phase === 'animate') {
-        show(els.tileView);
-        runAnimatePhase();
-        syncSharedAudio().catch(console.error);
-      }
-
-      if (phase === 'reveal') {
-        stopSyncedAudio();
-        clearAudioReactiveLevel();
-        setAnimationState(false);
-        show(els.revealView);
-      }
-
-      if (phase === 'selfie') {
-        stopSyncedAudio();
-        clearAudioReactiveLevel();
-        setAnimationState(false);
-        show(els.selfieView);
-        ensureSelfieCamera();
-      }
-    }
-
-    onValue(sessionRef, snap => {
-      const data = snap.val();
-      if (!data) return;
-
-      state.session = data;
-      applyThemeClass(data.themePreset || 'nku');
-
-      els.statusDot.classList.add('live');
-      els.statusText.textContent = 'Connected live';
-
-      applyPhase();
-
-      if ((state.session?.phase || 'lobby') === 'animate' && (state.session?.animationStyle === 'audio')) {
-        syncSharedAudio().catch(console.error);
-      }
-    });
-
-    onValue(participantRef, snap => {
-      state.participant = snap.val();
-
-      if (state.participant) {
-        els.readyBtn.classList.remove('hidden');
-        els.participantName.textContent = state.participant.nickname || 'Audience device';
-
-        if ((state.session?.phase || 'lobby') === 'lobby') {
-          setAnimationState(false);
-          show(els.tileView);
-        }
-      }
-
-      updateTileView();
-    });
-
-    els.joinBtn.addEventListener('click', async () => {
-      await unlockAudio();
-      joinSession().catch(console.error);
-    });
-
-    els.readyBtn.addEventListener('click', async () => {
-      await unlockAudio();
-      setReady().catch(console.error);
-    });
-
-    els.enableSoundBtn.addEventListener('click', () => unlockAudio().catch(console.error));
-
-    els.nicknameInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') joinSession().catch(console.error);
-    });
-
-    els.captureBtn.addEventListener('click', () => {
-      const video = els.camera;
-      const canvas = els.snapshot;
-      if (!video.videoWidth || !video.videoHeight) return;
-
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      const grad = ctx.createLinearGradient(0, canvas.height * 0.58, 0, canvas.height);
-      grad.addColorStop(0, 'rgba(16,16,16,0)');
-      grad.addColorStop(1, 'rgba(16,16,16,.75)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = '#f7b718';
-      ctx.font = `700 ${Math.max(32, canvas.width * 0.05)}px Inter, sans-serif`;
-      ctx.fillText(state.session?.finalHeadline || 'CrowdCode', canvas.width * 0.08, canvas.height * 0.84);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = `500 ${Math.max(22, canvas.width * 0.032)}px Inter, sans-serif`;
-      ctx.fillText(state.session?.finalSubhead || '', canvas.width * 0.08, canvas.height * 0.89);
-
-      const dataUrl = canvas.toDataURL('image/png');
-      els.downloadBtn.href = dataUrl;
-
-      els.snapshot.classList.remove('hidden');
-      els.camera.classList.add('hidden');
-      els.downloadBtn.classList.remove('hidden');
-      els.retakeBtn.classList.remove('hidden');
-      els.captureBtn.classList.add('hidden');
-    });
-
-    els.retakeBtn.addEventListener('click', () => {
-      els.snapshot.classList.add('hidden');
-      els.camera.classList.remove('hidden');
-      els.downloadBtn.classList.add('hidden');
-      els.retakeBtn.classList.add('hidden');
-      els.captureBtn.classList.remove('hidden');
-    });
-
-    updateTileView();
-
-    window.addEventListener('beforeunload', () => {
-      stopSyncedAudio();
-    });
-  </script>
+    };
+  });
+}
+
+function renderPhase(){
+  const phase = state.session.phase || 'lobby';
+  const nickname = state.participant.nickname || els.nickname.value.trim() || 'Creator';
+  const tiles = state.session.hypeTiles || ['BUILD','DESIGN','CODE','SHIP'];
+  const tileIndex = Math.abs(participantId.split('').reduce((a,c)=>a+c.charCodeAt(0),0)) % tiles.length;
+  const tile = tiles[tileIndex] || 'BUILD';
+
+  if(phase === 'countdown'){
+    els.heroTitle.textContent = 'Get ready…';
+    els.heroSubtitle.textContent = 'The room is about to launch.';
+    els.phaseHeading.textContent = `${nickname}, your phone is live`;
+    const remaining = state.session.countdownTargetAt ? Math.max(0, Math.ceil((state.session.countdownTargetAt - Date.now()) / 1000)) : '3';
+    els.mainDisplay.textContent = remaining;
+    els.subDisplay.textContent = 'Watch the room. This is your launch moment.';
+    return;
+  }
+  if(phase === 'reveal'){
+    els.heroTitle.textContent = state.session.finalHeadline || 'YOU BUILT THIS';
+    els.heroSubtitle.textContent = state.session.finalSubhead || '';
+    els.phaseHeading.textContent = 'Launch moment';
+    els.mainDisplay.textContent = state.session.finalHeadline || 'YOU BUILT THIS';
+    els.subDisplay.textContent = state.session.finalSubhead || 'INF 286 Final Projects';
+    return;
+  }
+  if(phase === 'voting'){
+    els.heroTitle.textContent = 'Audience favorite voting is open';
+    els.heroSubtitle.textContent = 'Cast one vote for the project that impressed you most.';
+    els.phaseHeading.textContent = 'Vote now';
+    els.mainDisplay.textContent = 'VOTE';
+    els.subDisplay.textContent = 'Pick your favorite project below.';
+    return;
+  }
+  els.heroTitle.textContent = 'Join the INF 286 launch.';
+  els.heroSubtitle.textContent = state.joined ? 'You are part of the phone wall now.' : 'Pick a nickname and join the room.';
+  els.phaseHeading.textContent = state.joined ? `${nickname}, you’re in` : 'Waiting for you to join';
+  els.mainDisplay.textContent = tile;
+  els.subDisplay.textContent = state.session.subtitle || 'You are not just turning in projects. You are launching them.';
+}
+
+els.joinBtn.onclick = join;
+document.querySelectorAll('.reactBtn').forEach(btn => btn.onclick = async () => addReaction(sessionId, btn.dataset.emoji, els.nickname.value.trim() || 'Student'));
+
+onValue(ref(db, `demoDay/sessions/${sessionId}/participants/${participantId}`), snap => {
+  state.participant = snap.val() || {};
+  if(snap.exists()) { state.joined = true; els.joinBtn.textContent = 'Joined'; els.joinBtn.disabled = true; els.nickname.value = state.participant.nickname || ''; }
+  renderPhase();
+});
+
+onValue(sessionRef(sessionId), snap => { state.session = { ...defaultSession(), ...(snap.val() || {}) }; renderPhase(); renderVotePanel(); });
+onValue(projectsRef(sessionId), snap => { state.projects = snap.val() || {}; renderVotePanel(); });
+setInterval(renderPhase, 300);
+</script>
 </body>
 </html>
