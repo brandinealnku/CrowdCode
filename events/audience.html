@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CrowdCode Audience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body data-page="audience">
+  <main class="audience-shell" id="audienceShell">
+    <div class="audience-card glass" id="audienceCard">
+      <div class="audience-top">
+        <img id="audienceLogo" alt="Event logo" hidden />
+        <div>
+          <p class="eyebrow" id="audienceOrg">CrowdCode</p>
+          <h1 id="audienceHeadline">Join the reveal</h1>
+          <p class="muted" id="audienceSubhead">Enter your session code to connect.</p>
+        </div>
+      </div>
+
+      <div class="field" id="joinFieldWrap">
+        <label for="joinCodeInput">Session code</label>
+        <input id="joinCodeInput" placeholder="AB12CD34" />
+      </div>
+      <div class="field" id="nicknameWrap">
+        <label for="nicknameInput">Your nickname</label>
+        <input id="nicknameInput" placeholder="Brandi's phone" />
+      </div>
+      <div class="button-row" id="joinButtonsWrap">
+        <button id="joinSessionBtn" class="btn primary">Join session</button>
+      </div>
+
+      <div id="audienceDisplay" class="audience-display hidden">
+        <div id="mosaicSlice" class="mosaic-slice hidden"></div>
+        <div id="tileDisplay" class="tile-display">AI</div>
+        <p class="small muted" id="tileHint">Waiting for host…</p>
+        <a id="ctaBtn" class="btn primary hidden" target="_blank" rel="noopener noreferrer">Explore</a>
+      </div>
+
+      <div class="field hidden" id="selfieWrap">
+        <label for="selfieFile">Optional selfie/share photo</label>
+        <input id="selfieFile" type="file" accept="image/*" capture="user" />
+      </div>
+    </div>
+  </main>
+  <script type="module" src="./assets/app.js"></script>
+</body>
+</html>
