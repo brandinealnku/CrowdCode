@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "crowdcodeNext": {
+      "events": {
+        ".read": true,
+        "$eventId": {
+          ".write": "auth != null"
+        }
+      },
+      "sessions": {
+        ".read": true,
+        "$sessionCode": {
+          ".write": "auth != null"
+        }
+      },
+      "participants": {
+        "$sessionCode": {
+          ".read": true,
+          "$participantId": {
+            ".write": true
+          }
+        }
+      }
+    }
+  }
+}
