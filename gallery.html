@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INF 286 Demo Day | Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div class="eyebrow">Public Project Gallery</div>
+    <h2 id="galleryTitle">INF 286 Demo Day Projects</h2>
+    <p id="gallerySubtitle">Explore the final websites, demos, and GitHub repos from Intro to Web Development.</p>
+  </section>
+
+  <div class="toolbar">
+    <input id="searchBox" placeholder="Search by team, title, category, or tech" />
+    <div class="pill">Session <span id="sessionCode">—</span></div>
+    <div class="pill">Featured <span id="featuredPill">None</span></div>
+  </div>
+
+  <div id="cards" class="cards"></div>
+</div>
+
+<script type="module">
+import { onValue, getSessionId, sessionRef, projectsRef, defaultSession, escapeHtml } from './assets/app.js';
+const sessionId = getSessionId();
+document.getElementById('sessionCode').textContent = sessionId;
+const state = { session: defaultSession(), projects:{} };
+const cards = document.getElementById('cards');
+const searchBox = document.getElementById('searchBox');
+const featuredPill = document.getElementById('featuredPill');
+
+function render(){
+  const q = searchBox.value.trim().toLowerCase();
+  const projects = Object.values(state.projects || {}).filter(p => {
+    const hay = `${p.team} ${p.title} ${p.category} ${p.pitch} ${p.members} ${p.tech}`.toLowerCase();
+    return !q || hay.includes(q);
+  }).sort((a,b)=> (b.votes||0) - (a.votes||0) || (a.createdAt||0)-(b.createdAt||0));
+  featuredPill.textContent = state.session.featuredProjectId || 'None';
+  cards.innerHTML = projects.length ? projects.map(p => `
+    <article class="project-card ${p.id === state.session.featuredProjectId ? 'featured' : ''}">
+      <div class="meta"><span class="tag">${escapeHtml(p.team)}</span><span class="tag">${escapeHtml(p.category)}</span><span class="tag">${escapeHtml(p.tech || 'Web')}</span></div>
+      <h3>${escapeHtml(p.title)}</h3>
+      <p class="muted">${escapeHtml(p.pitch)}</p>
+      <div class="small"><strong>Members:</strong> ${escapeHtml(p.members || '—')}</div>
+      <div class="score">${p.votes || 0}</div>
+      <div class="muted">audience votes</div>
+      <div class="link-row">
+        <a class="action" target="_blank" rel="noopener noreferrer" href="${escapeHtml(p.demoUrl || '#')}">Open project</a>
+        <a class="action" target="_blank" rel="noopener noreferrer" href="${escapeHtml(p.repoUrl || '#')}">GitHub</a>
+      </div>
+    </article>
+  `).join('') : '<div class="empty panel">No matching projects.</div>';
+}
+
+searchBox.addEventListener('input', render);
+onValue(sessionRef(sessionId), snap => { state.session = { ...defaultSession(), ...(snap.val() || {}) }; document.getElementById('galleryTitle').textContent = state.session.title || 'INF 286 Demo Day Projects'; document.getElementById('gallerySubtitle').textContent = state.session.subtitle || 'Explore the projects.'; render(); });
+onValue(projectsRef(sessionId), snap => { state.projects = snap.val() || {}; render(); });
+</script>
+</body>
+</html>
